@@ -1,0 +1,712 @@
+#!/usr/bin/env ruby
+# https://stevep99.github.io/seniply/
+# https://getreuer.info/posts/keyboards/faqs/index.html#home-row-mods-are-hard-to-use
+# https://acavalin.com/p/ergonomic_keyboard
+# https://x-bows.com/pages/nature-guide
+require 'json'
+
+unless (File.exist?(ARGV[0]))
+  puts "USO: #{File.basename __FILE__} file.vil"
+  exit 1
+end
+
+fin    = File.expand_path(ARGV[0])
+fout   = "#{File.basename fin, '.vil'}.htm"
+layers = JSON.load_file(fin)['layout'][0...6]
+
+layer_names = [
+  { code: :BASE , lbl: :DEFAULT },
+  { code: :PROG , lbl: :SYMBOLS },
+  { code: :NAVI , lbl: :NAVIGATION },
+  { code: :MEDIA, lbl: :NUMBERS },
+  { code: :FUNC , lbl: :FUNCTIONS },
+  { code: :MOUSE, lbl: 'MOUSE & BROWSER' },
+  { code: :CUST , lbl: :CUSTOM },
+]
+
+key_special = {
+  'TD(0)'  => { lbl: %Q|E<div class="hl ml-1">&middot;&middot;&euro;</div>| },
+  'USER00' => { lbl: "M.CPI\nIncr" },
+  'USER01' => { lbl: "M.CPI\nDecr" },
+  'USER02' => { lbl: "M.CPI\nLvl" },
+  'USER03' => { lbl: "M.DRAG\nsniper" },
+}
+
+#column_shifts = [1.2, 1.2, 0.77, 0, 0.3, 0.5]
+#column_shifts += column_shifts.reverse
+column_shifts = [0]*12
+
+begin
+  # https://github.com/vial-kb/vial-gui/blob/main/src/main/python/keycodes/keycodes.py
+  $key_defs = {}
+
+  def add_key_def(code, lbl, descr = '', aliases: [], printable: nil, masked: false)
+    data = { lbl: lbl, descr: descr, printable: printable, masked: masked }
+    $key_defs[code] = data
+    aliases.each{|k| $key_defs[k] = data }
+  end # add_key_def
+
+  # KEYCODES_SPECIAL
+  add_key_def("KC_NO", "")
+  add_key_def("KC_TRNS", "▽", aliases: ["KC_TRANSPARENT"])
+
+  # KEYCODES_BASIC_NUMPAD
+  add_key_def("KC_NUMLOCK", "Num\nLock", aliases: ["KC_NLCK"])
+  add_key_def("KC_KP_SLASH", "/", aliases: ["KC_PSLS"])
+  add_key_def("KC_KP_ASTERISK", "*", aliases: ["KC_PAST"])
+  add_key_def("KC_KP_MINUS", "-", aliases: ["KC_PMNS"])
+  add_key_def("KC_KP_PLUS", "+", aliases: ["KC_PPLS"])
+  add_key_def("KC_KP_ENTER", "Num\n↵", aliases: ["KC_PENT"]) # Enter
+  add_key_def("KC_KP_1", "1", aliases: ["KC_P1"])
+  add_key_def("KC_KP_2", "2", aliases: ["KC_P2"])
+  add_key_def("KC_KP_3", "3", aliases: ["KC_P3"])
+  add_key_def("KC_KP_4", "4", aliases: ["KC_P4"])
+  add_key_def("KC_KP_5", "5", aliases: ["KC_P5"])
+  add_key_def("KC_KP_6", "6", aliases: ["KC_P6"])
+  add_key_def("KC_KP_7", "7", aliases: ["KC_P7"])
+  add_key_def("KC_KP_8", "8", aliases: ["KC_P8"])
+  add_key_def("KC_KP_9", "9", aliases: ["KC_P9"])
+  add_key_def("KC_KP_0", "0", aliases: ["KC_P0"])
+  add_key_def("KC_KP_DOT", ".", aliases: ["KC_PDOT"])
+  add_key_def("KC_KP_EQUAL", "=", aliases: ["KC_PEQL"])
+  add_key_def("KC_KP_COMMA", ",", aliases: ["KC_PCMM"])
+
+  # KEYCODES_BASIC_NAV
+  add_key_def("KC_PSCREEN", "Print\nScreen", aliases: ["KC_PSCR"])
+  add_key_def("KC_SCROLLLOCK", "Scroll\nLock", aliases: ["KC_SLCK", "KC_BRMD"])
+  add_key_def("KC_PAUSE", "Pause", aliases: ["KC_PAUS", "KC_BRK", "KC_BRMU"])
+  add_key_def("KC_INSERT", "Ins", aliases: ["KC_INS"]) # Insert
+  add_key_def("KC_HOME", "Home")
+  add_key_def("KC_PGUP", "Page\nUp")
+  add_key_def("KC_DELETE", "Del▶", aliases: ["KC_DEL"])
+  add_key_def("KC_END", "End")
+  add_key_def("KC_PGDOWN", "Page\nDown", aliases: ["KC_PGDN"])
+  add_key_def("KC_RIGHT", "Right", aliases: ["KC_RGHT"])
+  add_key_def("KC_LEFT", "Left")
+  add_key_def("KC_DOWN", "Down")
+  add_key_def("KC_UP", "Up")
+
+  # KEYCODES_BASIC
+  add_key_def("KC_A", "A", printable: "a")
+  add_key_def("KC_B", "B", printable: "b")
+  add_key_def("KC_C", "C", printable: "c")
+  add_key_def("KC_D", "D", printable: "d")
+  add_key_def("KC_E", "E", printable: "e")
+  add_key_def("KC_F", "F", printable: "f")
+  add_key_def("KC_G", "G", printable: "g")
+  add_key_def("KC_H", "H", printable: "h")
+  add_key_def("KC_I", "I", printable: "i")
+  add_key_def("KC_J", "J", printable: "j")
+  add_key_def("KC_K", "K", printable: "k")
+  add_key_def("KC_L", "L", printable: "l")
+  add_key_def("KC_M", "M", printable: "m")
+  add_key_def("KC_N", "N", printable: "n")
+  add_key_def("KC_O", "O", printable: "o")
+  add_key_def("KC_P", "P", printable: "p")
+  add_key_def("KC_Q", "Q", printable: "q")
+  add_key_def("KC_R", "R", printable: "r")
+  add_key_def("KC_S", "S", printable: "s")
+  add_key_def("KC_T", "T", printable: "t")
+  add_key_def("KC_U", "U", printable: "u")
+  add_key_def("KC_V", "V", printable: "v")
+  add_key_def("KC_W", "W", printable: "w")
+  add_key_def("KC_X", "X", printable: "x")
+  add_key_def("KC_Y", "Y", printable: "y")
+  add_key_def("KC_Z", "Z", printable: "z")
+  add_key_def("KC_1", "!\n1", printable: "1")
+  add_key_def("KC_2", "@\n2", printable: "2")
+  add_key_def("KC_3", "#\n3", printable: "3")
+  add_key_def("KC_4", "$\n4", printable: "4")
+  add_key_def("KC_5", "%\n5", printable: "5")
+  add_key_def("KC_6", "^\n6", printable: "6")
+  add_key_def("KC_7", "&\n7", printable: "7")
+  add_key_def("KC_8", "*\n8", printable: "8")
+  add_key_def("KC_9", "(\n9", printable: "9")
+  add_key_def("KC_0", ")\n0", printable: "0")
+  add_key_def("KC_ENTER", "↵", aliases: ["KC_ENT"]) # Enter / &crarr;
+  add_key_def("KC_ESCAPE", "⎋Esc", aliases: ["KC_ESC"])
+  add_key_def("KC_BSPACE", "◀Bksp", aliases: ["KC_BSPC"])
+  add_key_def("KC_TAB", "Tab")
+  add_key_def("KC_SPACE", "Space", aliases: ["KC_SPC"])
+  add_key_def("KC_MINUS", "_\n-", printable: "-", aliases: ["KC_MINS"])
+  add_key_def("KC_EQUAL", "+\n=", printable: "=", aliases: ["KC_EQL"])
+  add_key_def("KC_LBRACKET", "{\n[", printable: "[", aliases: ["KC_LBRC"])
+  add_key_def("KC_RBRACKET", "}\n]", printable: "]", aliases: ["KC_RBRC"])
+  add_key_def("KC_BSLASH", "|\n\\", printable: "\\", aliases: ["KC_BSLS"])
+  add_key_def("KC_SCOLON", ":\n;", printable: ";", aliases: ["KC_SCLN"])
+  add_key_def("KC_QUOTE", "\"\n'", printable: "'", aliases: ["KC_QUOT"])
+  add_key_def("KC_GRAVE", "~\n`", printable: "`", aliases: ["KC_GRV", "KC_ZKHK"])
+  add_key_def("KC_COMMA", "<\n,", printable: ",", aliases: ["KC_COMM"])
+  add_key_def("KC_DOT", ">\n.", printable: ".")
+  add_key_def("KC_SLASH", "?\n/", printable: "/", aliases: ["KC_SLSH"])
+  add_key_def("KC_CAPSLOCK", "Caps\nLock", aliases: ["KC_CLCK", "KC_CAPS"])
+  add_key_def("KC_F1", "F1")
+  add_key_def("KC_F2", "F2")
+  add_key_def("KC_F3", "F3")
+  add_key_def("KC_F4", "F4")
+  add_key_def("KC_F5", "F5")
+  add_key_def("KC_F6", "F6")
+  add_key_def("KC_F7", "F7")
+  add_key_def("KC_F8", "F8")
+  add_key_def("KC_F9", "F9")
+  add_key_def("KC_F10", "F10")
+  add_key_def("KC_F11", "F11")
+  add_key_def("KC_F12", "F12")
+
+  add_key_def("KC_APPLICATION", "Menu", aliases: ["KC_APP"])
+  add_key_def("KC_LCTRL", "⌘LCtl", aliases: ["KC_LCTL"])
+  add_key_def("KC_LSHIFT", "⇧LSft", aliases: ["KC_LSFT"])
+  add_key_def("KC_LALT", "⌥LAlt", aliases: ["KC_LOPT"])
+  add_key_def("KC_LGUI", "✶LGui", aliases: ["KC_LCMD", "KC_LWIN"])
+  add_key_def("KC_RCTRL", "⌘RCtl", aliases: ["KC_RCTL"])
+  add_key_def("KC_RSHIFT", "⇧RSft", aliases: ["KC_RSFT"])
+  add_key_def("KC_RALT", "⌥RAlt", aliases: ["KC_ALGR", "KC_ROPT"])
+  add_key_def("KC_RGUI", "✶RGui", aliases: ["KC_RCMD", "KC_RWIN"])
+
+  # KEYCODES_SHIFTED
+  add_key_def("KC_TILD", "~")
+  add_key_def("KC_EXLM", "!")
+  add_key_def("KC_AT", "@")
+  add_key_def("KC_HASH", "#")
+  add_key_def("KC_DLR", "$")
+  add_key_def("KC_PERC", "%")
+  add_key_def("KC_CIRC", "^")
+  add_key_def("KC_AMPR", "&")
+  add_key_def("KC_ASTR", "*")
+  add_key_def("KC_LPRN", "(")
+  add_key_def("KC_RPRN", ")")
+  add_key_def("KC_UNDS", "_")
+  add_key_def("KC_PLUS", "+")
+  add_key_def("KC_LCBR", "{")
+  add_key_def("KC_RCBR", "}")
+  add_key_def("KC_LT", "<")
+  add_key_def("KC_GT", ">")
+  add_key_def("KC_COLN", ":")
+  add_key_def("KC_PIPE", "|")
+  add_key_def("KC_QUES", "?")
+  add_key_def("KC_DQUO", '"')
+
+  # KEYCODES_ISO
+  add_key_def("KC_NONUS_HASH", "~\n#", "Non-US # and ~", aliases: ["KC_NUHS"])
+  add_key_def("KC_NONUS_BSLASH", "|\n\\", "Non-US \\ and |", aliases: ["KC_NUBS"])
+  add_key_def("KC_RO", "_\n\\", "JIS \\ and _", aliases: ["KC_INT1"])
+  add_key_def("KC_KANA", "カタカナ\nひらがな", "JIS Katakana/Hiragana", aliases: ["KC_INT2"])
+  add_key_def("KC_JYEN", "|\n¥", aliases: ["KC_INT3"])
+  add_key_def("KC_HENK", "変換", "JIS Henkan", aliases: ["KC_INT4"])
+  add_key_def("KC_MHEN", "無変換", "JIS Muhenkan", aliases: ["KC_INT5"])
+
+  # KEYCODES_ISO_KR
+  add_key_def("KC_LANG1", "한영\nかな", "Korean Han/Yeong / JP Mac Kana", aliases: ["KC_HAEN"])
+  add_key_def("KC_LANG2", "漢字\n英数", "Korean Hanja / JP Mac Eisu", aliases: ["KC_HANJ"])
+
+  # KEYCODES_BOOT
+  add_key_def("QK_BOOT", "Boot-\nloader", "Put the keyboard into bootloader mode for flashing", aliases: ["RESET"])
+  add_key_def("QK_REBOOT", "Reboot", "Reboots the keyboard. Does not load the bootloader")
+  add_key_def("QK_CLEAR_EEPROM", "Clear\nEEPROM", "Reinitializes the keyboard's EEPROM (persistent memory)", aliases: ["EE_CLR"])
+
+  # KEYCODES_MODIFIERS
+  add_key_def("OSM(MOD_LSFT)", "OSM\nLSft", "Enable Left Shift for one keypress")
+  add_key_def("OSM(MOD_LCTL)", "OSM\nLCtl", "Enable Left Control for one keypress")
+  add_key_def("OSM(MOD_LALT)", "OSM\nLAlt", "Enable Left Alt for one keypress")
+  add_key_def("OSM(MOD_LGUI)", "OSM\nLGUI", "Enable Left GUI for one keypress")
+  add_key_def("OSM(MOD_RSFT)", "OSM\nRSft", "Enable Right Shift for one keypress")
+  add_key_def("OSM(MOD_RCTL)", "OSM\nRCtl", "Enable Right Control for one keypress")
+  add_key_def("OSM(MOD_RALT)", "OSM\nRAlt", "Enable Right Alt for one keypress")
+  add_key_def("OSM(MOD_RGUI)", "OSM\nRGUI", "Enable Right GUI for one keypress")
+  add_key_def("OSM(MOD_LCTL|MOD_LSFT)", "OSM\nCS", "Enable Left Control and Shift for one keypress")
+  add_key_def("OSM(MOD_LCTL|MOD_LALT)", "OSM\nCA", "Enable Left Control and Alt for one keypress")
+  add_key_def("OSM(MOD_LCTL|MOD_LGUI)", "OSM\nCG", "Enable Left Control and GUI for one keypress")
+  add_key_def("OSM(MOD_LSFT|MOD_LALT)", "OSM\nSA", "Enable Left Shift and Alt for one keypress")
+  add_key_def("OSM(MOD_LSFT|MOD_LGUI)", "OSM\nSG", "Enable Left Shift and GUI for one keypress")
+  add_key_def("OSM(MOD_LALT|MOD_LGUI)", "OSM\nAG", "Enable Left Alt and GUI for one keypress")
+  add_key_def("OSM(MOD_RCTL|MOD_RSFT)", "OSM\nRCS", "Enable Right Control and Shift for one keypress")
+  add_key_def("OSM(MOD_RCTL|MOD_RALT)", "OSM\nRCA", "Enable Right Control and Alt for one keypress")
+  add_key_def("OSM(MOD_RCTL|MOD_RGUI)", "OSM\nRCG", "Enable Right Control and GUI for one keypress")
+  add_key_def("OSM(MOD_RSFT|MOD_RALT)", "OSM\nRSA", "Enable Right Shift and Alt for one keypress")
+  add_key_def("OSM(MOD_RSFT|MOD_RGUI)", "OSM\nRSG", "Enable Right Shift and GUI for one keypress")
+  add_key_def("OSM(MOD_RALT|MOD_RGUI)", "OSM\nRAG", "Enable Right Alt and GUI for one keypress")
+  add_key_def("OSM(MOD_LCTL|MOD_LSFT|MOD_LGUI)", "OSM\nCSG", "Enable Left Control, Shift, and GUI for one keypress")
+  add_key_def("OSM(MOD_LCTL|MOD_LALT|MOD_LGUI)", "OSM\nCAG", "Enable Left Control, Alt, and GUI for one keypress")
+  add_key_def("OSM(MOD_LSFT|MOD_LALT|MOD_LGUI)", "OSM\nSAG", "Enable Left Shift, Alt, and GUI for one keypress")
+  add_key_def("OSM(MOD_RCTL|MOD_RSFT|MOD_RGUI)", "OSM\nRCSG", "Enable Right Control, Shift, and GUI for one keypress")
+  add_key_def("OSM(MOD_RCTL|MOD_RALT|MOD_RGUI)", "OSM\nRCAG", "Enable Right Control, Alt, and GUI for one keypress")
+  add_key_def("OSM(MOD_RSFT|MOD_RALT|MOD_RGUI)", "OSM\nRSAG", "Enable Right Shift, Alt, and GUI for one keypress")
+  add_key_def("OSM(MOD_MEH)", "OSM\nMeh", "Enable Left Control, Shift, and Alt for one keypress")
+  add_key_def("OSM(MOD_HYPR)", "OSM\nHyper", "Enable Left Control, Shift, Alt, and GUI for one keypress")
+  add_key_def("OSM(MOD_RCTL|MOD_RSFT|MOD_RALT)", "OSM\nRMeh", "Enable Right Control, Shift, and Alt for one keypress")
+  add_key_def("OSM(MOD_RCTL|MOD_RSFT|MOD_RALT|MOD_RGUI)", "OSM\nRHyp", "Enable Right Control, Shift, Alt, and GUI for one keypress")
+
+  add_key_def("LSFT", "⇧LSft", masked: true)
+  add_key_def("LCTL", "⌘LCtl", masked: true)
+  add_key_def("LALT", "⌥LAlt", masked: true)
+  add_key_def("LGUI", "✶LGui", masked: true)
+  add_key_def("RSFT", "⇧RSft", masked: true)
+  add_key_def("RCTL", "⌘RCtl", masked: true)
+  add_key_def("RALT", "⌥RAlt", masked: true)
+  add_key_def("RGUI", "✶RGui", masked: true)
+  add_key_def("C_S", "LCS", "LCTL + LSFT", masked: true, aliases: ["LCS"])
+  add_key_def("LCA", "LCA", "LCTL + LALT", masked: true)
+  add_key_def("LCG", "LCG", "LCTL + LGUI", masked: true)
+  add_key_def("LSA", "LSA", "LSFT + LALT", masked: true)
+  add_key_def("LAG", "LAG", "LALT + LGUI", masked: true)
+  add_key_def("SGUI", "LSG", "LGUI + LSFT", masked: true, aliases: ["LSG"])
+  add_key_def("LCAG", "LCAG", "LCTL + LALT + LGUI", masked: true)
+  add_key_def("RCG", "RCG", "RCTL + RGUI", masked: true)
+  add_key_def("MEH", "Meh", "LCTL + LSFT + LALT", masked: true)
+  add_key_def("HYPR", "Hyper", "LCTL + LSFT + LALT + LGUI", masked: true)
+
+  add_key_def("LSFT_T", "⇧LSft_T", "Left Shift when held, kc when tapped", masked: true)
+  add_key_def("LCTL_T", "⌘LCtl_T", "Left Control when held, kc when tapped", masked: true)
+  add_key_def("LALT_T", "⌥LAlt_T", "Left Alt when held, kc when tapped", masked: true)
+  add_key_def("LGUI_T", "✶LGui_T", "Left GUI when held, kc when tapped", masked: true)
+  add_key_def("RSFT_T", "⇧RSft_T", "Right Shift when held, kc when tapped", masked: true)
+  add_key_def("RCTL_T", "⌘RCtl_T", "Right Control when held, kc when tapped", masked: true)
+  add_key_def("RALT_T", "⌥RAlt_T", "Right Alt when held, kc when tapped", masked: true)
+  add_key_def("RGUI_T", "✶RGui_T", "Right GUI when held, kc when tapped", masked: true)
+  add_key_def("C_S_T", "LCS_T", "Left Control + Left Shift when held, kc when tapped", masked: true, aliases: ["LCS_T"] )
+  add_key_def("LCA_T", "LCA_T", "LCTL + LALT when held, kc when tapped", masked: true)
+  add_key_def("LCG_T", "LCG_T", "LCTL + LGUI when held, kc when tapped", masked: true)
+  add_key_def("LSA_T", "LSA_T", "LSFT + LALT when held, kc when tapped", masked: true)
+  add_key_def("LAG_T", "LAG_T", "LALT + LGUI when held, kc when tapped", masked: true)
+  add_key_def("SGUI_T", "LSG_T", "LGUI + LSFT when held, kc when tapped", masked: true, aliases: ["LSG_T"])
+  add_key_def("LCAG_T", "LCAG_T", "LCTL + LALT + LGUI when held, kc when tapped", masked: true)
+  add_key_def("RCG_T", "RCG_T", "RCTL + RGUI when held, kc when tapped", masked: true)
+  add_key_def("RCAG_T", "RCAG_T", "RCTL + RALT + RGUI when held, kc when tapped", masked: true)
+  add_key_def("MEH_T", "Meh_T", "LCTL + LSFT + LALT when held, kc when tapped", masked: true)
+  add_key_def("ALL_T", "ALL_T", "LCTL + LSFT + LALT + LGUI when held, kc when tapped", masked: true)
+
+  add_key_def("KC_GESC", "~\nEsc", "Esc normally, but ~ when Shift or GUI is pressed")
+  add_key_def("KC_LSPO", "LS\n(", "Left Shift when held, ( when tapped")
+  add_key_def("KC_RSPC", "RS\n)", "Right Shift when held, ) when tapped")
+  add_key_def("KC_LCPO", "LC\n(", "Left Control when held, ( when tapped")
+  add_key_def("KC_RCPC", "RC\n)", "Right Control when held, ) when tapped")
+  add_key_def("KC_LAPO", "LA\n(", "Left Alt when held, ( when tapped")
+  add_key_def("KC_RAPC", "RA\n)", "Right Alt when held, ) when tapped")
+  add_key_def("KC_SFTENT", "RS\nEnter", "Right Shift when held, Enter when tapped")
+
+  # KEYCODES_QUANTUM
+  add_key_def("MAGIC_SWAP_CONTROL_CAPSLOCK", "Swap\nCtrl\nCaps", "Swap Caps Lock and Left Control", aliases: ["CL_SWAP"])
+  add_key_def("MAGIC_UNSWAP_CONTROL_CAPSLOCK", "Unswap\nCtrl\nCaps", "Unswap Caps Lock and Left Control", aliases: ["CL_NORM"])
+  add_key_def("MAGIC_CAPSLOCK_TO_CONTROL", "Caps\nto\nCtrl", "Treat Caps Lock as Control", aliases: ["CL_CTRL"])
+  add_key_def("MAGIC_UNCAPSLOCK_TO_CONTROL", "Caps\nnot to\nCtrl", "Stop treating Caps Lock as Control", aliases: ["CL_CAPS"])
+  add_key_def("MAGIC_SWAP_LCTL_LGUI", "Swap\nLCtl\nLGui", "Swap Left Control and GUI", aliases: ["LCG_SWP"])
+  add_key_def("MAGIC_UNSWAP_LCTL_LGUI", "Unswap\nLCtl\nLGui", "Unswap Left Control and GUI", aliases: ["LCG_NRM"])
+  add_key_def("MAGIC_SWAP_RCTL_RGUI", "Swap\nRCtl\nRGui", "Swap Right Control and GUI", aliases: ["RCG_SWP"])
+  add_key_def("MAGIC_UNSWAP_RCTL_RGUI", "Unswap\nRCtl\nRGui", "Unswap Right Control and GUI", aliases: ["RCG_NRM"])
+  add_key_def("MAGIC_SWAP_CTL_GUI", "Swap\nCtl\nGui", "Swap Control and GUI on both sides", aliases: ["CG_SWAP"])
+  add_key_def("MAGIC_UNSWAP_CTL_GUI", "Unswap\nCtl\nGui", "Unswap Control and GUI on both sides", aliases: ["CG_NORM"])
+  add_key_def("MAGIC_TOGGLE_CTL_GUI", "Toggle\nCtl\nGui", "Toggle Control and GUI swap on both sides", aliases: ["CG_TOGG"])
+  add_key_def("MAGIC_SWAP_LALT_LGUI", "Swap\nLAlt\nLGui", "Swap Left Alt and GUI", aliases: ["LAG_SWP"])
+  add_key_def("MAGIC_UNSWAP_LALT_LGUI", "Unswap\nLAlt\nLGui", "Unswap Left Alt and GUI", aliases: ["LAG_NRM"])
+  add_key_def("MAGIC_SWAP_RALT_RGUI", "Swap\nRAlt\nRGui", "Swap Right Alt and GUI", aliases: ["RAG_SWP"])
+  add_key_def("MAGIC_UNSWAP_RALT_RGUI", "Unswap\nRAlt\nRGui", "Unswap Right Alt and GUI", aliases: ["RAG_NRM"])
+  add_key_def("MAGIC_SWAP_ALT_GUI", "Swap\nAlt\nGui", "Swap Alt and GUI on both sides", aliases: ["AG_SWAP"])
+  add_key_def("MAGIC_UNSWAP_ALT_GUI", "Unswap\nAlt\nGui", "Unswap Alt and GUI on both sides", aliases: ["AG_NORM"])
+  add_key_def("MAGIC_TOGGLE_ALT_GUI", "Toggle\nAlt\nGui", "Toggle Alt and GUI swap on both sides", aliases: ["AG_TOGG"])
+  add_key_def("MAGIC_NO_GUI", "GUI\nOff", "Disable the GUI keys", aliases: ["GUI_OFF"])
+  add_key_def("MAGIC_UNNO_GUI", "GUI\nOn", "Enable the GUI keys", aliases: ["GUI_ON"])
+  add_key_def("MAGIC_TOGGLE_GUI", "GUI\nToggle", "Toggle the GUI keys on and off", aliases: ["GUI_TOGG"])
+  add_key_def("MAGIC_SWAP_GRAVE_ESC", "Swap\n`\nEsc", "Swap ` and Escape", aliases: ["GE_SWAP"])
+  add_key_def("MAGIC_UNSWAP_GRAVE_ESC", "Unswap\n`\nEsc", "Unswap ` and Escape", aliases: ["GE_NORM"])
+  add_key_def("MAGIC_SWAP_BACKSLASH_BACKSPACE", "Swap\n\\\nBS", "Swap \\ and Backspace", aliases: ["BS_SWAP"])
+  add_key_def("MAGIC_UNSWAP_BACKSLASH_BACKSPACE", "Unswap\n\\\nBS", "Unswap \\ and Backspace", aliases: ["BS_NORM"])
+  add_key_def("MAGIC_HOST_NKRO", "NKRO\nOn", "Enable N-key rollover", aliases: ["NK_ON"])
+  add_key_def("MAGIC_UNHOST_NKRO", "NKRO\nOff", "Disable N-key rollover", aliases: ["NK_OFF"])
+  add_key_def("MAGIC_TOGGLE_NKRO", "NKRO\nToggle", "Toggle N-key rollover", aliases: ["NK_TOGG"])
+  add_key_def("MAGIC_EE_HANDS_LEFT", "EEH\nLeft", "Set the master half of a split keyboard as the left hand (for EE_HANDS)", aliases: ["EH_LEFT"])
+  add_key_def("MAGIC_EE_HANDS_RIGHT", "EEH\nRight", "Set the master half of a split keyboard as the right hand (for EE_HANDS)", aliases: ["EH_RGHT"])
+
+  add_key_def("AU_ON", "Audio\nON", "Audio mode on")
+  add_key_def("AU_OFF", "Audio\nOFF", "Audio mode off")
+  add_key_def("AU_TOG", "Audio\nToggle", "Toggles Audio mode")
+  add_key_def("CLICKY_TOGGLE", "Clicky\nToggle", "Toggles Audio clicky mode", aliases: ["CK_TOGG"])
+  add_key_def("CLICKY_UP", "Clicky\nUp", "Increases frequency of the clicks", aliases: ["CK_UP"])
+  add_key_def("CLICKY_DOWN", "Clicky\nDown", "Decreases frequency of the clicks", aliases: ["CK_DOWN"])
+  add_key_def("CLICKY_RESET", "Clicky\nReset", "Resets frequency to default", aliases: ["CK_RST"])
+  add_key_def("MU_ON", "Music\nOn", "Turns on Music Mode")
+  add_key_def("MU_OFF", "Music\nOff", "Turns off Music Mode")
+  add_key_def("MU_TOG", "Music\nToggle", "Toggles Music Mode")
+  add_key_def("MU_MOD", "Music\nCycle", "Cycles through the music modes")
+
+  add_key_def("HPT_ON", "Haptic\nOn", "Turn haptic feedback on")
+  add_key_def("HPT_OFF", "Haptic\nOff", "Turn haptic feedback off")
+  add_key_def("HPT_TOG", "Haptic\nToggle", "Toggle haptic feedback on/off")
+  add_key_def("HPT_RST", "Haptic\nReset", "Reset haptic feedback config to default")
+  add_key_def("HPT_FBK", "Haptic\nFeed\nback", "Toggle feedback to occur on keypress, release or both")
+  add_key_def("HPT_BUZ", "Haptic\nBuzz", "Toggle solenoid buzz on/off")
+  add_key_def("HPT_MODI", "Haptic\nNext", "Go to next DRV2605L waveform")
+  add_key_def("HPT_MODD", "Haptic\nPrev", "Go to previous DRV2605L waveform")
+  add_key_def("HPT_CONT", "Haptic\nCont.", "Toggle continuous haptic mode on/off")
+  add_key_def("HPT_CONI", "Haptic\n+", "Increase DRV2605L continous haptic strength")
+  add_key_def("HPT_COND", "Haptic\n-", "Decrease DRV2605L continous haptic strength")
+  add_key_def("HPT_DWLI", "Haptic\nDwell+", "Increase Solenoid dwell time")
+  add_key_def("HPT_DWLD", "Haptic\nDwell-", "Decrease Solenoid dwell time")
+
+  add_key_def("KC_ASDN", "Auto-\nshift\nDown", "Lower the Auto Shift timeout variable (down)")
+  add_key_def("KC_ASUP", "Auto-\nshift\nUp", "Raise the Auto Shift timeout variable (up)")
+  add_key_def("KC_ASRP", "Auto-\nshift\nReport", "Report your current Auto Shift timeout value")
+  add_key_def("KC_ASON", "Auto-\nshift\nOn", "Turns on the Auto Shift Function")
+  add_key_def("KC_ASOFF", "Auto-\nshift\nOff", "Turns off the Auto Shift Function")
+  add_key_def("KC_ASTG", "Auto-\nshift\nToggle", "Toggles the state of the Auto Shift feature")
+
+  add_key_def("CMB_ON", "Combo\nOn", "Turns on Combo feature")
+  add_key_def("CMB_OFF", "Combo\nOff", "Turns off Combo feature")
+  add_key_def("CMB_TOG", "Combo\nToggle", "Toggles Combo feature on and off")
+
+  add_key_def("QK_CAPS_WORD_TOGGLE", "Caps\nWord", "Capitalizes until end of current word", aliases: ["CW_TOGG"])
+  add_key_def("QK_REPEAT_KEY", "Repeat", "Repeats the last pressed key", aliases: ["QK_REP"])
+  add_key_def("QK_ALT_REPEAT_KEY", "Alt\nRepeat", "Alt repeats the last pressed key", aliases: ["QK_AREP"])
+
+  # KEYCODES_BACKLIGHT
+  add_key_def("BL_TOGG", "BL\nToggle", "Turn the backlight on or off")
+  add_key_def("BL_STEP", "BL\nCycle", "Cycle through backlight levels")
+  add_key_def("BL_BRTG", "BL\nBreath", "Toggle backlight breathing")
+  add_key_def("BL_ON", "BL On", "Set the backlight to max brightness")
+  add_key_def("BL_OFF", "BL Off", "Turn the backlight off")
+  add_key_def("BL_INC", "BL +", "Increase the backlight level")
+  add_key_def("BL_DEC", "BL - ", "Decrease the backlight level")
+
+  add_key_def("RGB_TOG", "RGB\nToggle", "Toggle RGB lighting on or off")
+  add_key_def("RGB_MOD", "RGB\nMode +", "Next RGB mode")
+  add_key_def("RGB_RMOD", "RGB\nMode -", "Previous RGB mode")
+  add_key_def("RGB_HUI", "Hue +", "Increase hue")
+  add_key_def("RGB_HUD", "Hue -", "Decrease hue")
+  add_key_def("RGB_SAI", "Sat +", "Increase saturation")
+  add_key_def("RGB_SAD", "Sat -", "Decrease saturation")
+  add_key_def("RGB_VAI", "Bright +", "Increase value")
+  add_key_def("RGB_VAD", "Bright -", "Decrease value")
+  add_key_def("RGB_SPI", "Effect +", "Increase RGB effect speed")
+  add_key_def("RGB_SPD", "Effect -", "Decrease RGB effect speed")
+  add_key_def("RGB_M_P", "RGB\nMode P", "RGB Mode: Plain")
+  add_key_def("RGB_M_B", "RGB\nMode B", "RGB Mode: Breathe")
+  add_key_def("RGB_M_R", "RGB\nMode R", "RGB Mode: Rainbow")
+  add_key_def("RGB_M_SW", "RGB\nMode SW", "RGB Mode: Swirl")
+  add_key_def("RGB_M_SN", "RGB\nMode SN", "RGB Mode: Snake")
+  add_key_def("RGB_M_K", "RGB\nMode K", "RGB Mode: Knight Rider")
+  add_key_def("RGB_M_X", "RGB\nMode X", "RGB Mode: Christmas")
+  add_key_def("RGB_M_G", "RGB\nMode G", "RGB Mode: Gradient")
+  add_key_def("RGB_M_T", "RGB\nMode T", "RGB Mode: Test")
+
+  add_key_def("RM_ON", "RGBM\nOn", "Turn on RGB Matrix")
+  add_key_def("RM_OFF", "RGBM\nOff", "Turn off RGB Matrix")
+  add_key_def("RM_TOGG", "RGBM\nTogg", "Toggle RGB Matrix on or off")
+  add_key_def("RM_NEXT", "RGBM\nNext", "Cycle through animations")
+  add_key_def("RM_PREV", "RGBM\nPrev", "Cycle through animations in reverse")
+  add_key_def("RM_HUEU", "RGBM\nHue +", "Cycle through hue")
+  add_key_def("RM_HUED", "RGBM\nHue -", "Cycle through hue in reverse")
+  add_key_def("RM_SATU", "RGBM\nSat +", "Increase the saturation")
+  add_key_def("RM_SATD", "RGBM\nSat -", "Decrease the saturation")
+  add_key_def("RM_VALU", "RGBM\nBright +", "Increase the brightness level")
+  add_key_def("RM_VALD", "RGBM\nBright -", "Decrease the brightness level")
+  add_key_def("RM_SPDU", "RGBM\nSpeed +", "Increase the animation speed")
+  add_key_def("RM_SPDD", "RGBM\nSpeed -", "Decrease the animation speed")
+
+  # KEYCODES_MEDIA
+  add_key_def("KC_F13", "F13")
+  add_key_def("KC_F14", "F14")
+  add_key_def("KC_F15", "F15")
+  add_key_def("KC_F16", "F16")
+  add_key_def("KC_F17", "F17")
+  add_key_def("KC_F18", "F18")
+  add_key_def("KC_F19", "F19")
+  add_key_def("KC_F20", "F20")
+  add_key_def("KC_F21", "F21")
+  add_key_def("KC_F22", "F22")
+  add_key_def("KC_F23", "F23")
+  add_key_def("KC_F24", "F24")
+
+  add_key_def("KC_PWR", "Power", "System Power Down", aliases: ["KC_SYSTEM_POWER"])
+  add_key_def("KC_SLEP", "Sleep", "System Sleep", aliases: ["KC_SYSTEM_SLEEP"])
+  add_key_def("KC_WAKE", "Wake", "System Wake", aliases: ["KC_SYSTEM_WAKE"])
+  add_key_def("KC_EXEC", "Exec", "Execute", aliases: ["KC_EXECUTE"])
+  add_key_def("KC_HELP", "Help")
+  add_key_def("KC_SLCT", "Select", aliases: ["KC_SELECT"])
+  add_key_def("KC_STOP", "Stop")
+  add_key_def("KC_AGIN", "Again", aliases: ["KC_AGAIN"])
+  add_key_def("KC_UNDO", "Undo")
+  add_key_def("KC_CUT", "Cut")
+  add_key_def("KC_COPY", "Copy")
+  add_key_def("KC_PSTE", "Paste", aliases: ["KC_PASTE"])
+  add_key_def("KC_FIND", "Find")
+
+  add_key_def("KC_CALC", "Calc", "Launch Calculator (Windows)", aliases: ["KC_CALCULATOR"])
+  add_key_def("KC_MAIL", "Mail", "Launch Mail (Windows)")
+  add_key_def("KC_MSEL", "Media\nPlayer", "Launch Media Player (Windows)", aliases: ["KC_MEDIA_SELECT"])
+  add_key_def("KC_MYCM", "My\nPC", "Launch My Computer (Windows)", aliases: ["KC_MY_COMPUTER"])
+  add_key_def("KC_WSCH", "Browser\nSearch", "Browser Search (Windows)", aliases: ["KC_WWW_SEARCH"])
+  add_key_def("KC_WHOM", "Browser\nHome", "Browser Home (Windows)", aliases: ["KC_WWW_HOME"])
+  add_key_def("KC_WBAK", "Browser\nBack", "Browser Back (Windows)", aliases: ["KC_WWW_BACK"])
+  add_key_def("KC_WFWD", "Browser\nForward", "Browser Forward (Windows)", aliases: ["KC_WWW_FORWARD"])
+  add_key_def("KC_WSTP", "Browser\nStop", "Browser Stop (Windows)", aliases: ["KC_WWW_STOP"])
+  add_key_def("KC_WREF", "Browser\nRefresh", "Browser Refresh (Windows)", aliases: ["KC_WWW_REFRESH"])
+  add_key_def("KC_WFAV", "Browser\nFav.", "Browser Favorites (Windows)", aliases: ["KC_WWW_FAVORITES"])
+  add_key_def("KC_BRIU", "Bright.\nUp", "Increase the brightness of screen (Laptop)", aliases: ["KC_BRIGHTNESS_UP"])
+  add_key_def("KC_BRID", "Bright.\nDown", "Decrease the brightness of screen (Laptop)", aliases: ["KC_BRIGHTNESS_DOWN"])
+
+  add_key_def("KC_MPRV", "Media\nPrev", "Previous Track", aliases: ["KC_MEDIA_PREV_TRACK"])
+  add_key_def("KC_MNXT", "Media\nNext", "Next Track", aliases: ["KC_MEDIA_NEXT_TRACK"])
+  add_key_def("KC_MUTE", "Mute", "Mute Audio", aliases: ["KC_AUDIO_MUTE"])
+  add_key_def("KC_VOLD", "Vol -", "Volume Down", aliases: ["KC_AUDIO_VOL_DOWN"])
+  add_key_def("KC_VOLU", "Vol +", "Volume Up", aliases: ["KC_AUDIO_VOL_UP"])
+  add_key_def("KC__VOLDOWN", "Vol -\nAlt", "Volume Down Alternate")
+  add_key_def("KC__VOLUP", "Vol +\nAlt", "Volume Up Alternate")
+  add_key_def("KC_MSTP", "Media\nStop", aliases: ["KC_MEDIA_STOP"])
+  add_key_def("KC_MPLY", "Media\nPlay", "Play/Pause", aliases: ["KC_MEDIA_PLAY_PAUSE"])
+  add_key_def("KC_MRWD", "Prev\nTrack\n(macOS)", "Previous Track / Rewind (macOS)", aliases: ["KC_MEDIA_REWIND"])
+  add_key_def("KC_MFFD", "Next\nTrack\n(macOS)", "Next Track / Fast Forward (macOS)", aliases: ["KC_MEDIA_FAST_FORWARD"])
+  add_key_def("KC_EJCT", "Eject", "Eject (macOS)", aliases: ["KC_MEDIA_EJECT"])
+
+  add_key_def("KC_MS_U", "Mouse\nUp", "Mouse Cursor Up", aliases: ["KC_MS_UP"])
+  add_key_def("KC_MS_D", "Mouse\nDown", "Mouse Cursor Down", aliases: ["KC_MS_DOWN"])
+  add_key_def("KC_MS_L", "Mouse\nLeft", "Mouse Cursor Left", aliases: ["KC_MS_LEFT"])
+  add_key_def("KC_MS_R", "Mouse\nRight", "Mouse Cursor Right", aliases: ["KC_MS_RIGHT"])
+  add_key_def("KC_BTN1", "Mouse\n1", "Mouse Button 1", aliases: ["KC_MS_BTN1"])
+  add_key_def("KC_BTN2", "Mouse\n2", "Mouse Button 2", aliases: ["KC_MS_BTN2"])
+  add_key_def("KC_BTN3", "Mouse\n3", "Mouse Button 3", aliases: ["KC_MS_BTN3"])
+  add_key_def("KC_BTN4", "Mouse\n4", "Mouse Button 4", aliases: ["KC_MS_BTN4"])
+  add_key_def("KC_BTN5", "Mouse\n5", "Mouse Button 5", aliases: ["KC_MS_BTN5"])
+  add_key_def("KC_WH_U", "Mouse\nWheel\nUp", aliases: ["KC_MS_WH_UP"])
+  add_key_def("KC_WH_D", "Mouse\nWheel\nDown", aliases: ["KC_MS_WH_DOWN"])
+  add_key_def("KC_WH_L", "Mouse\nWheel\nLeft", aliases: ["KC_MS_WH_LEFT"])
+  add_key_def("KC_WH_R", "Mouse\nWheel\nRight", aliases: ["KC_MS_WH_RIGHT"])
+  add_key_def("KC_ACL0", "Mouse\nAccel\n0", "Set mouse acceleration to 0", aliases: ["KC_MS_ACCEL0"])
+  add_key_def("KC_ACL1", "Mouse\nAccel\n1", "Set mouse acceleration to 1", aliases: ["KC_MS_ACCEL1"])
+  add_key_def("KC_ACL2", "Mouse\nAccel\n2", "Set mouse acceleration to 2", aliases: ["KC_MS_ACCEL2"])
+
+  add_key_def("KC_LCAP", "Locking\nCaps", "Locking Caps Lock", aliases: ["KC_LOCKING_CAPS"])
+  add_key_def("KC_LNUM", "Locking\nNum", "Locking Num Lock", aliases: ["KC_LOCKING_NUM"])
+  add_key_def("KC_LSCR", "Locking\nScroll", "Locking Scroll Lock", aliases: ["KC_LOCKING_SCROLL"])
+
+  # KEYCODES_MACRO_BASE
+  add_key_def("DYN_REC_START1", "DM1\nRec", "Dynamic Macro 1 Rec Start", aliases: ["DM_REC1"])
+  add_key_def("DYN_REC_START2", "DM2\nRec", "Dynamic Macro 2 Rec Start", aliases: ["DM_REC2"])
+  add_key_def("DYN_REC_STOP", "DM Rec\nStop", "Dynamic Macro Rec Stop", aliases: ["DM_RSTP"])
+  add_key_def("DYN_MACRO_PLAY1", "DM1\nPlay", "Dynamic Macro 1 Play", aliases: ["DM_PLY1"])
+  add_key_def("DYN_MACRO_PLAY2", "DM2\nPlay", "Dynamic Macro 2 Play", aliases: ["DM_PLY2"])
+end
+
+File.open(fout, 'w') do |f|
+  f.puts <<~HTML
+    <html>
+    <head>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css">
+      <style>
+        :root {
+          --bg: #aaa;
+          --bg-noop: white;
+        }
+      
+        table {
+          border-spacing: 0.3rem;
+          border-collapse: separate;
+          
+          & td { vertical-align: top; }
+          & td.vsep {
+            padding: 0.3rem;
+            font-weight: bold;
+            font-size: 1rem;
+            text-align: center;
+          }
+        }
+        
+        .key {
+          font-family: monospace;
+        
+          border:        0.4rem solid var(--bg);
+          border-top:    0.2rem solid var(--bg);
+          border-bottom: 0.7rem solid var(--bg);
+          background-color: var(--bg);
+          border-radius: 0.5rem;
+          
+          margin-bottom: 0.3rem;
+
+          &.hidden { visibility: hidden; }
+          &.shift { margin-bottom: 0; }
+          
+          & > div {
+            font-size: 0.6rem;
+            overflow: hidden;
+            white-space: break-spaces;
+            border-radius: 0.5rem;
+            border: 1px inset silver;
+            background-color: white;
+            min-width:  3rem;
+            max-width:  3rem;
+            min-height: 3rem;
+            max-height: 3rem;
+            text-align: center;
+            padding: 0.2rem;
+            
+            &.noop {
+              border: 1px solid silver;
+              background-color: var(--bg-noop);
+            }
+          }
+          
+          & .fun_name, .key_name { font-weight: bold; }
+          
+          & .key_name {
+            margin-top: 0.5rem;
+            &.rows-1 { margin-top: 0.9rem; font-size: 0.7rem; }
+            &.rows-2 { margin-top: 0.5rem; }
+            &.rows-3 { margin-top: 0.2rem; }
+          }
+
+          & .fun_key {
+            border: 1px solid black;
+            padding: 0.5rem 0.15rem 0.3rem 0.15rem;
+            border-radius: 0.5rem;
+            margin-top: 0.125rem;
+            line-height: 0.5rem;
+            &.short {
+              font-size: 0.7rem;
+              font-weight: bold;
+            }
+          }
+          
+          & .big {
+            font-size: 1.3rem;
+            position: relative;
+            top: -0.5rem;
+          }
+          
+          & .LT, .TO {
+            background-color: #ddd;
+            padding: 0.1rem;
+            border-radius: 0.2rem;
+            border: 1px dotted black;
+          }
+          
+          & .TO {
+            border: 1px solid black;
+            padding: 0.5rem 0.1rem;
+            position: relative;
+            top: -0.5rem;
+          }
+          
+          & .hl {
+            padding: 0.02rem 0.15rem;
+            border-radius: 0.25rem;
+            background-color: #ccc;
+          }
+        }
+      </style>
+    </head>
+    <body>
+  HTML
+
+  layers.each_with_index do |layer, layer_idx|
+    keys = layer[0...5]
+
+    # accoda i seguenti reversed chunks ai rispettivi primi
+    (5...10).each_with_index do |chunk, i|
+      keys[chunk - 5] += layer[chunk].to_a.reverse
+    end
+    
+    layer_name = %Q|<div class="title is-5 m-0 has-text-centered">#{layer_idx} &middot; #{layer_names[layer_idx][:code]} / #{layer_names[layer_idx][:lbl]}</div>|
+    f.puts %Q|<table class="mb-3"><tr><td colspan="13">#{layer_name}</td></tr><tr>|
+    
+    (0...12).each do |col|
+      #f.puts %Q|<td class="vsep">#{layer_idx}<br><br>#{layer_names[layer_idx].split('').join('<br>')}</td>| if col == 6
+      f.puts %Q|<td class="vsep">&nbsp;&nbsp;&nbsp;</td>| if col == 6
+      f.puts '<td>'
+      
+      if (shift = column_shifts[col].to_f) > 0
+        f.puts <<~HTML
+          <div class="key hidden shift" style="max-height: #{'%.2f' % (3.0 * shift)}rem">
+            <div>column shift</div>
+          </div>
+        HTML
+      end
+      
+      keys.each do |row|
+        missing = row[col] == -1
+        noop    = row[col] == 'KC_NO'
+        
+        row[col].to_s =~ /(.+)\((.+)\)/
+        has_arg  = !!$2
+        key_code = $2 ? $1 : row[col]
+        if has_arg
+          key_arg = $key_defs[$2]&.[](:lbl) || "?#{$2}"
+          key_arg = '&nbsp;' if key_arg == ''
+        end
+        
+        key_def = $key_defs[key_code] || { lbl: $2 ? $1 : row[col].to_s.sub('KC_', '').sub('KP_', '') }
+        
+        #lbl = row[col].to_s.sub('KC_', '').sub('KP_', '')
+        key_code = key_def[:lbl]
+        #key_code.sub!(/_T/, '<span class="hl ml-1">&bullet;</span>')
+        key_code = %|<div class="LT">#{$1}</div>| if key_code =~ /(.+)_T/
+        lbl = key_code.dup
+        lbl = '<div class="big">&nabla;</div>' if row[col] == 'KC_TRNS'
+        lbl = '&nbsp;' if noop
+        
+        if s = key_special[ row[col] ]
+          has_arg, lbl = false, s[:lbl]
+        end
+        
+        if row[col].to_s =~ /^LT(\d)/
+          key_code = %|<div class="LT">#{layer_names[$1.to_i][:code]}</div>|
+        end
+        
+        if row[col].to_s =~ /^TO\((\d)\)/
+          has_arg = false
+          lbl = %|<div class="TO">#{layer_names[$1.to_i][:code]}</div>|
+        end
+        
+        #lbl = has_arg \
+        #  ? %Q|<div class="fun_name">#{key_code}</div><div class="fun_key">#{key_arg}</div>|
+        #  : %Q|<div class="key_name rows-#{lbl.count("\n") + 1}">#{lbl}</div>|
+        if has_arg
+          is_short = key_arg.strip.size <= 3
+          
+          if key_arg.include?("\n")
+            if key_code == '⇧LSft'
+              lbl = key_arg.split("\n")[0]
+              lbl = %Q|<div class="key_name rows-1">#{lbl}</div>|
+            elsif %w[ ⌥LAlt ⌥RAlt ].include?(key_code)
+              lbl = key_arg.split("\n")[1]
+              lbl = %Q|<div class="fun_name">#{key_code}</div><div class="fun_key #{'short' if is_short}">#{lbl}</div>|
+            else
+              lbl = %Q|<div class="fun_name">#{key_code}</div><div class="fun_key #{'short' if is_short}">#{key_arg}</div>|
+            end
+          else
+            lbl = %Q|<div class="fun_name">#{key_code}</div><div class="fun_key #{'short' if is_short}">#{key_arg}</div>|
+          end
+        else
+          if layer_names[layer_idx][:code] == :PROG && lbl.include?("\n")
+            lbl = lbl.split("\n")[1]
+            lbl = %Q|<div class="key_name rows-1">#{lbl}</div>|
+          else
+            lbl = %Q|<div class="key_name rows-#{lbl.count("\n") + 1}">#{lbl}</div>|
+          end
+        end
+
+        
+        # aggiungi tasto fantasma come spaziatore
+        if row[0] == -1
+          f.puts <<~HTML
+            <div class="key hidden shift" style="max-height: #{'%.2f' % (3.0 * (column_shifts.max - shift))}rem">
+              <div>column shift</div>
+            </div>
+          HTML
+        end
+        
+        f.puts <<~HTML
+          <div class="key #{'hidden' if missing}">
+            <div class="#{'noop' if noop}">#{lbl}</div>
+          </div>
+        HTML
+      end
+      
+      f.puts '</td>'
+    end
+
+    f.puts '</tr></table>'
+  end
+
+  f.puts <<~HTML
+    <body>
+    </html>
+  HTML
+end
