@@ -2,8 +2,8 @@
 # https://stevep99.github.io/seniply/
 # https://getreuer.info/posts/keyboards/faqs/index.html#home-row-mods-are-hard-to-use
 # https://acavalin.com/p/ergonomic_keyboard
-# https://x-bows.com/pages/nature-guide
 require 'json'
+require 'cgi'
 
 unless (File.exist?(ARGV[0]))
   puts "USO: #{File.basename __FILE__} file.vil"
@@ -26,10 +26,10 @@ layer_names = [
 
 key_special = {
   'TD(0)'  => { lbl: %Q|E<div class="hl ml-1">&middot;&middot;&euro;</div>| },
-  'USER00' => { lbl: "M.CPI\nIncr" },
-  'USER01' => { lbl: "M.CPI\nDecr" },
-  'USER02' => { lbl: "M.CPI\nLvl" },
-  'USER03' => { lbl: "M.DRAG\nsniper" },
+  'USER00' => { lbl: "🖱+" }, # M.CPI\nIncr
+  'USER01' => { lbl: "🖱-" }, # M.CPI\nDecr
+  'USER02' => { lbl: "🖱L" }, # M.CPI\nLvl
+  'USER03' => { lbl: "🖱D" }, # M.DRAG\nsniper
 }
 
 #column_shifts = [1.2, 1.2, 0.77, 0, 0.3, 0.5]
@@ -37,6 +37,7 @@ key_special = {
 column_shifts = [0]*12
 
 begin
+  # https://www.piliapp.com/symbol/  |  https://emojidb.org/
   # https://github.com/vial-kb/vial-gui/blob/main/src/main/python/keycodes/keycodes.py
   $key_defs = {}
 
@@ -51,12 +52,12 @@ begin
   add_key_def("KC_TRNS", "▽", aliases: ["KC_TRANSPARENT"])
 
   # KEYCODES_BASIC_NUMPAD
-  add_key_def("KC_NUMLOCK", "Num\nLock", aliases: ["KC_NLCK"])
+  add_key_def("KC_NUMLOCK", "Num\n🔒︎", aliases: ["KC_NLCK"]) # Num\nLock
   add_key_def("KC_KP_SLASH", "/", aliases: ["KC_PSLS"])
   add_key_def("KC_KP_ASTERISK", "*", aliases: ["KC_PAST"])
   add_key_def("KC_KP_MINUS", "-", aliases: ["KC_PMNS"])
   add_key_def("KC_KP_PLUS", "+", aliases: ["KC_PPLS"])
-  add_key_def("KC_KP_ENTER", "Num\n↵", aliases: ["KC_PENT"]) # Enter
+  add_key_def("KC_KP_ENTER", "Num\n↵", aliases: ["KC_PENT"]) # Enter ↵ ↲ ⏎
   add_key_def("KC_KP_1", "1", aliases: ["KC_P1"])
   add_key_def("KC_KP_2", "2", aliases: ["KC_P2"])
   add_key_def("KC_KP_3", "3", aliases: ["KC_P3"])
@@ -72,19 +73,19 @@ begin
   add_key_def("KC_KP_COMMA", ",", aliases: ["KC_PCMM"])
 
   # KEYCODES_BASIC_NAV
-  add_key_def("KC_PSCREEN", "Print\nScreen", aliases: ["KC_PSCR"])
+  add_key_def("KC_PSCREEN", "⎙︎", aliases: ["KC_PSCR"]) # Print\nScreen 🅿
   add_key_def("KC_SCROLLLOCK", "Scroll\nLock", aliases: ["KC_SLCK", "KC_BRMD"])
   add_key_def("KC_PAUSE", "Pause", aliases: ["KC_PAUS", "KC_BRK", "KC_BRMU"])
-  add_key_def("KC_INSERT", "Ins", aliases: ["KC_INS"]) # Insert
-  add_key_def("KC_HOME", "Home")
-  add_key_def("KC_PGUP", "Page\nUp")
-  add_key_def("KC_DELETE", "Del▶", aliases: ["KC_DEL"])
-  add_key_def("KC_END", "End")
-  add_key_def("KC_PGDOWN", "Page\nDown", aliases: ["KC_PGDN"])
-  add_key_def("KC_RIGHT", "Right", aliases: ["KC_RGHT"])
-  add_key_def("KC_LEFT", "Left")
-  add_key_def("KC_DOWN", "Down")
-  add_key_def("KC_UP", "Up")
+  add_key_def("KC_INSERT", "↯", aliases: ["KC_INS"]) # Insert
+  add_key_def("KC_HOME", "⇱") # Home
+  add_key_def("KC_PGUP", "↟") # Page\nUp
+  add_key_def("KC_DELETE", "⌦", aliases: ["KC_DEL"]) # Del▶
+  add_key_def("KC_END", "⇲") # End
+  add_key_def("KC_PGDOWN", "↡", aliases: ["KC_PGDN"]) # Page\nDown
+  add_key_def("KC_RIGHT", "⭢︎", aliases: ["KC_RGHT"]) # Right
+  add_key_def("KC_LEFT", "⭠︎") # Left
+  add_key_def("KC_DOWN", "⭣") # Down
+  add_key_def("KC_UP", "⭡") # Up
 
   # KEYCODES_BASIC
   add_key_def("KC_A", "A", printable: "a")
@@ -123,11 +124,11 @@ begin
   add_key_def("KC_8", "*\n8", printable: "8")
   add_key_def("KC_9", "(\n9", printable: "9")
   add_key_def("KC_0", ")\n0", printable: "0")
-  add_key_def("KC_ENTER", "↵", aliases: ["KC_ENT"]) # Enter / &crarr;
-  add_key_def("KC_ESCAPE", "⎋Esc", aliases: ["KC_ESC"])
-  add_key_def("KC_BSPACE", "◀Bksp", aliases: ["KC_BSPC"])
-  add_key_def("KC_TAB", "Tab")
-  add_key_def("KC_SPACE", "Space", aliases: ["KC_SPC"])
+  add_key_def("KC_ENTER", "↵", aliases: ["KC_ENT"]) # Enter / &crarr; ↵ ↲ ⏎
+  add_key_def("KC_ESCAPE", "⎋", aliases: ["KC_ESC"]) # Esc ⎋𖣘ツ✠✰✘✖🅧🅔🅴
+  add_key_def("KC_BSPACE", "⌫", aliases: ["KC_BSPC"]) # ◀Bksp
+  add_key_def("KC_TAB", "⇥") # Tab
+  add_key_def("KC_SPACE", "⎵", aliases: ["KC_SPC"]) # Space
   add_key_def("KC_MINUS", "_\n-", printable: "-", aliases: ["KC_MINS"])
   add_key_def("KC_EQUAL", "+\n=", printable: "=", aliases: ["KC_EQL"])
   add_key_def("KC_LBRACKET", "{\n[", printable: "[", aliases: ["KC_LBRC"])
@@ -139,7 +140,7 @@ begin
   add_key_def("KC_COMMA", "<\n,", printable: ",", aliases: ["KC_COMM"])
   add_key_def("KC_DOT", ">\n.", printable: ".")
   add_key_def("KC_SLASH", "?\n/", printable: "/", aliases: ["KC_SLSH"])
-  add_key_def("KC_CAPSLOCK", "Caps\nLock", aliases: ["KC_CLCK", "KC_CAPS"])
+  add_key_def("KC_CAPSLOCK", "۩", aliases: ["KC_CLCK", "KC_CAPS"]) # Caps\nLock ⇯
   add_key_def("KC_F1", "F1")
   add_key_def("KC_F2", "F2")
   add_key_def("KC_F3", "F3")
@@ -153,15 +154,15 @@ begin
   add_key_def("KC_F11", "F11")
   add_key_def("KC_F12", "F12")
 
-  add_key_def("KC_APPLICATION", "Menu", aliases: ["KC_APP"])
-  add_key_def("KC_LCTRL", "⌘LCtl", aliases: ["KC_LCTL"])
-  add_key_def("KC_LSHIFT", "⇧LSft", aliases: ["KC_LSFT"])
-  add_key_def("KC_LALT", "⌥LAlt", aliases: ["KC_LOPT"])
-  add_key_def("KC_LGUI", "✶LGui", aliases: ["KC_LCMD", "KC_LWIN"])
-  add_key_def("KC_RCTRL", "⌘RCtl", aliases: ["KC_RCTL"])
-  add_key_def("KC_RSHIFT", "⇧RSft", aliases: ["KC_RSFT"])
-  add_key_def("KC_RALT", "⌥RAlt", aliases: ["KC_ALGR", "KC_ROPT"])
-  add_key_def("KC_RGUI", "✶RGui", aliases: ["KC_RCMD", "KC_RWIN"])
+  add_key_def("KC_APPLICATION", "☰", aliases: ["KC_APP"]) # Menu
+  add_key_def("KC_LCTRL", "⌘", aliases: ["KC_LCTL"]) # LCtl
+  add_key_def("KC_LSHIFT", "⇧", aliases: ["KC_LSFT"]) # LSft
+  add_key_def("KC_LALT", "⌥", aliases: ["KC_LOPT"])  # LAlt
+  add_key_def("KC_LGUI", "❁", aliases: ["KC_LCMD", "KC_LWIN"]) # LGui
+  add_key_def("KC_RCTRL", "⌘R", aliases: ["KC_RCTL"]) # RCtl
+  add_key_def("KC_RSHIFT", "⇧R", aliases: ["KC_RSFT"]) # RSft
+  add_key_def("KC_RALT", "⌥R", aliases: ["KC_ALGR", "KC_ROPT"]) # RAlt
+  add_key_def("KC_RGUI", "❁R", aliases: ["KC_RCMD", "KC_RWIN"]) # RGui
 
   # KEYCODES_SHIFTED
   add_key_def("KC_TILD", "~")
@@ -236,14 +237,14 @@ begin
   add_key_def("OSM(MOD_RCTL|MOD_RSFT|MOD_RALT)", "OSM\nRMeh", "Enable Right Control, Shift, and Alt for one keypress")
   add_key_def("OSM(MOD_RCTL|MOD_RSFT|MOD_RALT|MOD_RGUI)", "OSM\nRHyp", "Enable Right Control, Shift, Alt, and GUI for one keypress")
 
-  add_key_def("LSFT", "⇧LSft", masked: true)
-  add_key_def("LCTL", "⌘LCtl", masked: true)
-  add_key_def("LALT", "⌥LAlt", masked: true)
-  add_key_def("LGUI", "✶LGui", masked: true)
-  add_key_def("RSFT", "⇧RSft", masked: true)
-  add_key_def("RCTL", "⌘RCtl", masked: true)
-  add_key_def("RALT", "⌥RAlt", masked: true)
-  add_key_def("RGUI", "✶RGui", masked: true)
+  add_key_def("LSFT", "⇧", masked: true) # LSft
+  add_key_def("LCTL", "⌘", masked: true) # LCtl
+  add_key_def("LALT", "⌥", masked: true) # LAlt
+  add_key_def("LGUI", "❁", masked: true) # LGui
+  add_key_def("RSFT", "⇧R", masked: true) # RSft
+  add_key_def("RCTL", "⌘R", masked: true) # RCtl
+  add_key_def("RALT", "⌥R", masked: true) # RAlt
+  add_key_def("RGUI", "❁R", masked: true) # RGui
   add_key_def("C_S", "LCS", "LCTL + LSFT", masked: true, aliases: ["LCS"])
   add_key_def("LCA", "LCA", "LCTL + LALT", masked: true)
   add_key_def("LCG", "LCG", "LCTL + LGUI", masked: true)
@@ -255,14 +256,14 @@ begin
   add_key_def("MEH", "Meh", "LCTL + LSFT + LALT", masked: true)
   add_key_def("HYPR", "Hyper", "LCTL + LSFT + LALT + LGUI", masked: true)
 
-  add_key_def("LSFT_T", "⇧LSft_T", "Left Shift when held, kc when tapped", masked: true)
-  add_key_def("LCTL_T", "⌘LCtl_T", "Left Control when held, kc when tapped", masked: true)
-  add_key_def("LALT_T", "⌥LAlt_T", "Left Alt when held, kc when tapped", masked: true)
-  add_key_def("LGUI_T", "✶LGui_T", "Left GUI when held, kc when tapped", masked: true)
-  add_key_def("RSFT_T", "⇧RSft_T", "Right Shift when held, kc when tapped", masked: true)
-  add_key_def("RCTL_T", "⌘RCtl_T", "Right Control when held, kc when tapped", masked: true)
-  add_key_def("RALT_T", "⌥RAlt_T", "Right Alt when held, kc when tapped", masked: true)
-  add_key_def("RGUI_T", "✶RGui_T", "Right GUI when held, kc when tapped", masked: true)
+  add_key_def("LSFT_T", "⇧_T", "Left Shift when held, kc when tapped", masked: true) # LSft_T
+  add_key_def("LCTL_T", "⌘_T", "Left Control when held, kc when tapped", masked: true) # LCtl_T
+  add_key_def("LALT_T", "⌥_T", "Left Alt when held, kc when tapped", masked: true) # LAlt_T
+  add_key_def("LGUI_T", "❁_T", "Left GUI when held, kc when tapped", masked: true) # LGui_T
+  add_key_def("RSFT_T", "⇧R_T", "Right Shift when held, kc when tapped", masked: true) # RSft_T
+  add_key_def("RCTL_T", "⌘R_T", "Right Control when held, kc when tapped", masked: true) # RCtl_T
+  add_key_def("RALT_T", "⌥R_T", "Right Alt when held, kc when tapped", masked: true) # RAlt_T
+  add_key_def("RGUI_T", "❁R_T", "Right GUI when held, kc when tapped", masked: true) # RGui_T
   add_key_def("C_S_T", "LCS_T", "Left Control + Left Shift when held, kc when tapped", masked: true, aliases: ["LCS_T"] )
   add_key_def("LCA_T", "LCA_T", "LCTL + LALT when held, kc when tapped", masked: true)
   add_key_def("LCG_T", "LCG_T", "LCTL + LGUI when held, kc when tapped", masked: true)
@@ -429,49 +430,49 @@ begin
   add_key_def("KC_PSTE", "Paste", aliases: ["KC_PASTE"])
   add_key_def("KC_FIND", "Find")
 
-  add_key_def("KC_CALC", "Calc", "Launch Calculator (Windows)", aliases: ["KC_CALCULATOR"])
-  add_key_def("KC_MAIL", "Mail", "Launch Mail (Windows)")
-  add_key_def("KC_MSEL", "Media\nPlayer", "Launch Media Player (Windows)", aliases: ["KC_MEDIA_SELECT"])
-  add_key_def("KC_MYCM", "My\nPC", "Launch My Computer (Windows)", aliases: ["KC_MY_COMPUTER"])
+  add_key_def("KC_CALC", "🖩", "Launch Calculator (Windows)", aliases: ["KC_CALCULATOR"]) # ∑ Calc
+  add_key_def("KC_MAIL", "✉", "Launch Mail (Windows)") # Mail
+  add_key_def("KC_MSEL", "♫", "Launch Media Player (Windows)", aliases: ["KC_MEDIA_SELECT"]) # Media\nPlayer
+  add_key_def("KC_MYCM", "모", "Launch My Computer (Windows)", aliases: ["KC_MY_COMPUTER"]) # My\nPC
   add_key_def("KC_WSCH", "Browser\nSearch", "Browser Search (Windows)", aliases: ["KC_WWW_SEARCH"])
   add_key_def("KC_WHOM", "Browser\nHome", "Browser Home (Windows)", aliases: ["KC_WWW_HOME"])
-  add_key_def("KC_WBAK", "Browser\nBack", "Browser Back (Windows)", aliases: ["KC_WWW_BACK"])
-  add_key_def("KC_WFWD", "Browser\nForward", "Browser Forward (Windows)", aliases: ["KC_WWW_FORWARD"])
+  add_key_def("KC_WBAK", "⭅", "Browser Back (Windows)", aliases: ["KC_WWW_BACK"]) # Browser\nBack
+  add_key_def("KC_WFWD", "⭆", "Browser Forward (Windows)", aliases: ["KC_WWW_FORWARD"]) # Browser\nForward
   add_key_def("KC_WSTP", "Browser\nStop", "Browser Stop (Windows)", aliases: ["KC_WWW_STOP"])
   add_key_def("KC_WREF", "Browser\nRefresh", "Browser Refresh (Windows)", aliases: ["KC_WWW_REFRESH"])
   add_key_def("KC_WFAV", "Browser\nFav.", "Browser Favorites (Windows)", aliases: ["KC_WWW_FAVORITES"])
-  add_key_def("KC_BRIU", "Bright.\nUp", "Increase the brightness of screen (Laptop)", aliases: ["KC_BRIGHTNESS_UP"])
-  add_key_def("KC_BRID", "Bright.\nDown", "Decrease the brightness of screen (Laptop)", aliases: ["KC_BRIGHTNESS_DOWN"])
+  add_key_def("KC_BRIU", "☼", "Increase the brightness of screen (Laptop)", aliases: ["KC_BRIGHTNESS_UP"]) # Bright.\nUp
+  add_key_def("KC_BRID", "☀", "Decrease the brightness of screen (Laptop)", aliases: ["KC_BRIGHTNESS_DOWN"]) # Bright.\nDown
 
   add_key_def("KC_MPRV", "Media\nPrev", "Previous Track", aliases: ["KC_MEDIA_PREV_TRACK"])
   add_key_def("KC_MNXT", "Media\nNext", "Next Track", aliases: ["KC_MEDIA_NEXT_TRACK"])
-  add_key_def("KC_MUTE", "Mute", "Mute Audio", aliases: ["KC_AUDIO_MUTE"])
-  add_key_def("KC_VOLD", "Vol -", "Volume Down", aliases: ["KC_AUDIO_VOL_DOWN"])
-  add_key_def("KC_VOLU", "Vol +", "Volume Up", aliases: ["KC_AUDIO_VOL_UP"])
+  add_key_def("KC_MUTE", "🕪×", "Mute Audio", aliases: ["KC_AUDIO_MUTE"]) # Mute
+  add_key_def("KC_VOLD", "🕪-", "Volume Down", aliases: ["KC_AUDIO_VOL_DOWN"]) # Vol -
+  add_key_def("KC_VOLU", "🕪+", "Volume Up", aliases: ["KC_AUDIO_VOL_UP"]) # Vol +
   add_key_def("KC__VOLDOWN", "Vol -\nAlt", "Volume Down Alternate")
   add_key_def("KC__VOLUP", "Vol +\nAlt", "Volume Up Alternate")
-  add_key_def("KC_MSTP", "Media\nStop", aliases: ["KC_MEDIA_STOP"])
-  add_key_def("KC_MPLY", "Media\nPlay", "Play/Pause", aliases: ["KC_MEDIA_PLAY_PAUSE"])
+  add_key_def("KC_MSTP", "⏹︎", aliases: ["KC_MEDIA_STOP"]) # Media\nStop
+  add_key_def("KC_MPLY", "⏯︎", "Play/Pause", aliases: ["KC_MEDIA_PLAY_PAUSE"]) # Media\nPlay
   add_key_def("KC_MRWD", "Prev\nTrack\n(macOS)", "Previous Track / Rewind (macOS)", aliases: ["KC_MEDIA_REWIND"])
   add_key_def("KC_MFFD", "Next\nTrack\n(macOS)", "Next Track / Fast Forward (macOS)", aliases: ["KC_MEDIA_FAST_FORWARD"])
-  add_key_def("KC_EJCT", "Eject", "Eject (macOS)", aliases: ["KC_MEDIA_EJECT"])
+  add_key_def("KC_EJCT", "⏏", "Eject (macOS)", aliases: ["KC_MEDIA_EJECT"]) # Eject
 
   add_key_def("KC_MS_U", "Mouse\nUp", "Mouse Cursor Up", aliases: ["KC_MS_UP"])
   add_key_def("KC_MS_D", "Mouse\nDown", "Mouse Cursor Down", aliases: ["KC_MS_DOWN"])
   add_key_def("KC_MS_L", "Mouse\nLeft", "Mouse Cursor Left", aliases: ["KC_MS_LEFT"])
   add_key_def("KC_MS_R", "Mouse\nRight", "Mouse Cursor Right", aliases: ["KC_MS_RIGHT"])
-  add_key_def("KC_BTN1", "Mouse\n1", "Mouse Button 1", aliases: ["KC_MS_BTN1"])
-  add_key_def("KC_BTN2", "Mouse\n2", "Mouse Button 2", aliases: ["KC_MS_BTN2"])
-  add_key_def("KC_BTN3", "Mouse\n3", "Mouse Button 3", aliases: ["KC_MS_BTN3"])
-  add_key_def("KC_BTN4", "Mouse\n4", "Mouse Button 4", aliases: ["KC_MS_BTN4"])
-  add_key_def("KC_BTN5", "Mouse\n5", "Mouse Button 5", aliases: ["KC_MS_BTN5"])
-  add_key_def("KC_WH_U", "Mouse\nWheel\nUp", aliases: ["KC_MS_WH_UP"])
-  add_key_def("KC_WH_D", "Mouse\nWheel\nDown", aliases: ["KC_MS_WH_DOWN"])
-  add_key_def("KC_WH_L", "Mouse\nWheel\nLeft", aliases: ["KC_MS_WH_LEFT"])
-  add_key_def("KC_WH_R", "Mouse\nWheel\nRight", aliases: ["KC_MS_WH_RIGHT"])
-  add_key_def("KC_ACL0", "Mouse\nAccel\n0", "Set mouse acceleration to 0", aliases: ["KC_MS_ACCEL0"])
-  add_key_def("KC_ACL1", "Mouse\nAccel\n1", "Set mouse acceleration to 1", aliases: ["KC_MS_ACCEL1"])
-  add_key_def("KC_ACL2", "Mouse\nAccel\n2", "Set mouse acceleration to 2", aliases: ["KC_MS_ACCEL2"])
+  add_key_def("KC_BTN1", "🖱➀", "Mouse Button 1", aliases: ["KC_MS_BTN1"]) # Mouse\n1
+  add_key_def("KC_BTN2", "🖱➁", "Mouse Button 2", aliases: ["KC_MS_BTN2"]) # Mouse\n2
+  add_key_def("KC_BTN3", "🖱➂", "Mouse Button 3", aliases: ["KC_MS_BTN3"]) # Mouse\n3
+  add_key_def("KC_BTN4", "🖱➃", "Mouse Button 4", aliases: ["KC_MS_BTN4"]) # Mouse\n4
+  add_key_def("KC_BTN5", "🖱➄", "Mouse Button 5", aliases: ["KC_MS_BTN5"]) # Mouse\n5
+  add_key_def("KC_WH_U", "🖱↟", aliases: ["KC_MS_WH_UP"]) # Mouse\nWheel\nUp
+  add_key_def("KC_WH_D", "🖱↡", aliases: ["KC_MS_WH_DOWN"]) # Mouse\nWheel\nDown
+  add_key_def("KC_WH_L", "🖱↞", aliases: ["KC_MS_WH_LEFT"]) # Mouse\nWheel\nLeft
+  add_key_def("KC_WH_R", "🖱↠", aliases: ["KC_MS_WH_RIGHT"]) # Mouse\nWheel\nRight
+  add_key_def("KC_ACL0", "🖱⋅", "Set mouse acceleration to 0", aliases: ["KC_MS_ACCEL0"]) # Mouse\nAccel\n0
+  add_key_def("KC_ACL1", "🖱∶", "Set mouse acceleration to 1", aliases: ["KC_MS_ACCEL1"]) # Mouse\nAccel\n1
+  add_key_def("KC_ACL2", "🖱∴", "Set mouse acceleration to 2", aliases: ["KC_MS_ACCEL2"]) # Mouse\nAccel\n2
 
   add_key_def("KC_LCAP", "Locking\nCaps", "Locking Caps Lock", aliases: ["KC_LOCKING_CAPS"])
   add_key_def("KC_LNUM", "Locking\nNum", "Locking Num Lock", aliases: ["KC_LOCKING_NUM"])
@@ -547,9 +548,18 @@ File.open(fout, 'w') do |f|
           
           & .key_name {
             margin-top: 0.5rem;
-            &.rows-1 { margin-top: 0.9rem; font-size: 0.7rem; }
-            &.rows-2 { margin-top: 0.5rem; }
+            &.rows-1 {
+              margin-top: 0.5rem; font-size: 1.5rem;
+              &.bigger1 { margin-top: -0.4rem; font-size: 3rem; }
+              &.bigger2 { margin-top: -0.8rem; font-size: 3rem; }
+              &.bigger3 { margin-top: -1.5rem; font-size: 3rem; }
+              &.bigger4 { margin-top: 0;       font-size: 2rem; }
+              &.combo   { margin-top: 0.1rem;  font-size: 2rem; }
+            }
+            &.rows-2 { margin-top: 0.1rem; font-size: 1.3rem; line-height: 1.3rem; }
             &.rows-3 { margin-top: 0.2rem; }
+            
+            & .mod { background-color: #ddd; }
           }
 
           & .fun_key {
@@ -563,13 +573,7 @@ File.open(fout, 'w') do |f|
               font-weight: bold;
             }
           }
-          
-          & .big {
-            font-size: 1.3rem;
-            position: relative;
-            top: -0.5rem;
-          }
-          
+
           & .LT, .TO {
             background-color: #ddd;
             padding: 0.1rem;
@@ -618,11 +622,26 @@ File.open(fout, 'w') do |f|
           </div>
         HTML
       end
+        
+      def get_class(lbl)
+        small_syms1 = %w[ ↲ ⌘ ⌥ ⌫ ⌦ ⎙︎ ↯ ⭡ ⭠︎ ⭣ ⭢︎ - ` ☀ ☼ ]
+        small_syms2 = %w[ ↵ ⎋ ⇧ ⇥ ⇱ ⇲ ↟ ↡ 🖩 ✉ ⏹︎ ⏯︎ ♫ ⏏ ⎵ ]
+        small_syms3 = %w[ ⎵ _ ]
+        small_syms4 = %w[ 🖱↟ 🖱↡ 🖱↞ 🖱↠ 🖱+ 🖱- 🖱L 🖱D 🖱⋅ 🖱∶ 🖱∴ ]
+        combo = %w[ ☰ ]
+
+        klass = 'bigger1' if small_syms1.include?(lbl)
+        klass = 'bigger2' if small_syms2.include?(lbl)
+        klass = 'bigger3' if small_syms3.include?(lbl)
+        klass = 'bigger4' if small_syms4.include?(lbl)
+        klass = 'combo'   if combo.include?(lbl)
+        klass
+      end # get_class
       
       keys.each do |row|
         missing = row[col] == -1
         noop    = row[col] == 'KC_NO'
-        
+
         row[col].to_s =~ /(.+)\((.+)\)/
         has_arg  = !!$2
         key_code = $2 ? $1 : row[col]
@@ -636,9 +655,9 @@ File.open(fout, 'w') do |f|
         #lbl = row[col].to_s.sub('KC_', '').sub('KP_', '')
         key_code = key_def[:lbl]
         #key_code.sub!(/_T/, '<span class="hl ml-1">&bullet;</span>')
-        key_code = %|<div class="LT">#{$1}</div>| if key_code =~ /(.+)_T/
+        key_code = %|<span class="LT">#{$1}</span>| if key_code =~ /(.+)_T/
         lbl = key_code.dup
-        lbl = '<div class="big">&nabla;</div>' if row[col] == 'KC_TRNS'
+        lbl = '∇' if row[col] == 'KC_TRNS'
         lbl = '&nbsp;' if noop
         
         if s = key_special[ row[col] ]
@@ -646,40 +665,38 @@ File.open(fout, 'w') do |f|
         end
         
         if row[col].to_s =~ /^LT(\d)/
-          key_code = %|<div class="LT">#{layer_names[$1.to_i][:code]}</div>|
+          key_code = %|<span class="LT">#{layer_names[$1.to_i][:code]}</span>|
         end
         
         if row[col].to_s =~ /^TO\((\d)\)/
           has_arg = false
-          lbl = %|<div class="TO">#{layer_names[$1.to_i][:code]}</div>|
+          lbl = %|<span class="TO">#{layer_names[$1.to_i][:code]}</span>|
         end
         
         #lbl = has_arg \
         #  ? %Q|<div class="fun_name">#{key_code}</div><div class="fun_key">#{key_arg}</div>|
         #  : %Q|<div class="key_name rows-#{lbl.count("\n") + 1}">#{lbl}</div>|
         if has_arg
-          is_short = key_arg.strip.size <= 3
+          is_short = "#{key_code}#{key_arg}".size == 2
           
           if key_arg.include?("\n")
-            if key_code == '⇧LSft'
+            if key_code == '⇧'
               lbl = key_arg.split("\n")[0]
-              lbl = %Q|<div class="key_name rows-1">#{lbl}</div>|
-            elsif %w[ ⌥LAlt ⌥RAlt ].include?(key_code)
-              lbl = key_arg.split("\n")[1]
-              lbl = %Q|<div class="fun_name">#{key_code}</div><div class="fun_key #{'short' if is_short}">#{lbl}</div>|
+              lbl = %Q|<div class="key_name rows-1 #{get_class lbl}">#{lbl}</div>|
+            elsif %w[ ⌥ ⌥R ].include?(key_code)
+              key_arg = key_arg.split("\n")[1]
+              is_short = "#{key_code}#{key_arg}".size == 2
+              lbl = %Q|<div class="key_name rows-1 #{'combo' if is_short}"><span class="mod">#{key_code}</span>#{CGI::escapeHTML key_arg}</div>|
             else
-              lbl = %Q|<div class="fun_name">#{key_code}</div><div class="fun_key #{'short' if is_short}">#{key_arg}</div>|
+              lbl = %Q|<div class="key_name rows-1 #{'combo' if is_short}"><span class="mod">#{key_code}</span>#{CGI::escapeHTML key_arg}</div>|
             end
           else
-            lbl = %Q|<div class="fun_name">#{key_code}</div><div class="fun_key #{'short' if is_short}">#{key_arg}</div>|
+            lbl = %Q|<div class="key_name rows-1 #{'combo' if is_short}"><span class="mod">#{key_code}</span>#{CGI::escapeHTML key_arg}</div>|
+            #lbl = %Q|<div class="fun_name">#{key_code}</div><div class="fun_key #{'short' if is_short}">#{key_arg}</div>|
           end
         else
-          if layer_names[layer_idx][:code] == :PROG && lbl.include?("\n")
-            lbl = lbl.split("\n")[1]
-            lbl = %Q|<div class="key_name rows-1">#{lbl}</div>|
-          else
-            lbl = %Q|<div class="key_name rows-#{lbl.count("\n") + 1}">#{lbl}</div>|
-          end
+          lbl = lbl.split("\n")[1] if layer_names[layer_idx][:code] == :PROG && lbl.include?("\n")
+          lbl = %Q|<div class="key_name rows-#{lbl.count("\n") + 1} #{get_class lbl}">#{lbl}</div>|
         end
 
         
@@ -694,7 +711,7 @@ File.open(fout, 'w') do |f|
         
         f.puts <<~HTML
           <div class="key #{'hidden' if missing}">
-            <div class="#{'noop' if noop}">#{lbl}</div>
+            <div class="surface #{'noop' if noop}">#{lbl}</div>
           </div>
         HTML
       end

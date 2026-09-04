@@ -1,0 +1,29 @@
+https://get.vial.today/manual/  |  https://vial.rocks
+
+# https://getreuer.info/posts/keyboards/faqs/index.html#home-row-mods-are-hard-to-use
+- HRM: G/A/S/C/Agr | RAgr/RC/RS/A/RG
+
+# https://stevep99.github.io/seniply/
+- mc:      S+F5, S+F6, Ins
+- screen:  F1, F2
+- browser: F11, F12, C+T, C+S+T, C+Tab, C+S+Tab, G+T
+- SysReq:  A+Sysrq+REISUB, Sysrq (print screen)
+- Linux:   G+[ASEGFGB], Vol[+-Mute], Menu, S+Menu
+- Progr:   - Arrows/Home/End/PgUp/PgDw
+           - Canc, Bkspc, Ins
+           - Symbols: 0-9 -_ =+ \| `~ '" ;: /? ...
+           => sui numeri attraverso oneshot layer? OSL()
+
+# LAYERS: MO() press=switch | TG() tap=toggle | OSL() tap=switch for 1 key | LT(kc) tap=kc, press=switch
+- 0 | base  | letters
+- 1 | prog  | symbols
+- 2 | navi  | navigation
+- 3 | media | numbers
+- 4 | func  | FN* + media + TG(mouse)
+- 5 | mouse | mouse+browsing
+- 6 | cust  | custom (UNUSED)
+
+# TODO
+- staedtler lumocolor permanent duo M/F + trasparent varnish
+- colemak-dh?
+- vial fw @ x-bows  =>  https://x-bows.com/pages/nature-guide
