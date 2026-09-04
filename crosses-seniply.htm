@@ -58,18 +58,74 @@
       
       & .key_name {
         margin-top: 0.5rem;
+
+        & .mod {
+          border-radius: 0.3rem;
+          background-color: #ddd;
+          border: 1px outset silver;
+
+          &:has(.LT, .HRM) {
+            position: relative;
+            padding: 0 0.2rem;
+            border: 0 none;
+            & + .mod_key { position: relative; }
+          }
+        }
+
         &.rows-1 {
           margin-top: 0.5rem; font-size: 1.5rem;
+          
           &.bigger1 { margin-top: -0.4rem; font-size: 3rem; }
           &.bigger2 { margin-top: -0.8rem; font-size: 3rem; }
           &.bigger3 { margin-top: -1.5rem; font-size: 3rem; }
           &.bigger4 { margin-top: 0;       font-size: 2rem; }
           &.combo   { margin-top: 0.1rem;  font-size: 2rem; }
+
+          & .mod:has(.LT, .HRM) {
+            top: -0.9rem;  left: -0.4rem;
+            & + .mod_key { top: 0; left: -0.6rem; }
+          }
+
+          & .mod:has(.LT) + .mod_key {
+            top: -0.9rem; left: 0;
+            display: inline-block;
+            line-height: 0.8rem;
+          }
+
+          &.len-2 .mod:has(.LT, .HRM) {
+            left: -0.3rem;
+            & + .mod_key { top: 0; left: -1.3rem; }
+          }
         }
-        &.rows-2 { margin-top: 0.1rem; font-size: 1.3rem; line-height: 1.3rem; }
+        &.rows-2 {
+          margin-top: 0.1rem; font-size: 1.3rem; line-height: 1.3rem;
+
+          & .mod:has(.LT, .HRM) {
+            font-size: 1.5rem;
+            top: -0.2rem;  left: -0.4rem;
+            & + .mod_key {
+              top: -0.4rem; left: 0.3rem;
+              display: inline-block;
+              line-height: 0.8rem;
+            }
+          }
+        }
         &.rows-3 { margin-top: 0.2rem; }
-        
-        & .mod { background-color: #ddd; }
+
+        & .LT {
+          font-size: 1rem;
+          border-bottom: 1px solid black;
+        }
+
+        & .TO {
+          font-size: 0.9rem;
+          border: 1px solid black;
+          padding: 0.5rem 0.1rem;
+          position: relative;
+          left: -0.2rem;
+          top: 0.2rem;
+          background-color: #ddd;
+        }
       }
 
       & .fun_key {
@@ -84,24 +140,11 @@
         }
       }
 
-      & .LT, .TO {
-        background-color: #ddd;
-        padding: 0.1rem;
-        border-radius: 0.2rem;
-        border: 1px dotted black;
-      }
-      
-      & .TO {
-        border: 1px solid black;
-        padding: 0.5rem 0.1rem;
-        position: relative;
-        top: -0.5rem;
-      }
-      
       & .hl {
         padding: 0.02rem 0.15rem;
-        border-radius: 0.25rem;
-        background-color: #ccc;
+        position: relative;
+        bottom: 0.5rem;
+        font-size: 0.8rem;
       }
     }
   </style>
@@ -110,335 +153,335 @@
 <table class="mb-3"><tr><td colspan="13"><div class="title is-5 m-0 has-text-centered">0 &middot; BASE / DEFAULT</div></td></tr><tr>
 <td>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-2 ">~
+  <div class="surface "><div class="key_name rows-2  len-3">~
 `</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger2">⎋</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger2 len-1">⎋</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger2">⇥</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger2 len-1">⇥</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 "><span class="mod">⌥R</span>`</div></div>
+  <div class="surface "><div class="key_name rows-1  len-2"><span class="mod">⌥ᴿ</span><span class="mod_key">`</span></div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key hidden">
-  <div class="surface "><div class="key_name rows-1 ">-1</div></div>
+  <div class="surface "><div class="key_name rows-1  len-2">-1</div></div>
 </div>
 </td>
 <td>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-2 ">!
+  <div class="surface "><div class="key_name rows-2  len-3">!
 1</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">Q</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">Q</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 "><span class="mod"><span class="LT">❁</span></span>A</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1"><span class="mod"><span class="HRM">❁</span></span><span class="mod_key">A</span></div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">Z</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">Z</div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key hidden">
-  <div class="surface "><div class="key_name rows-1 ">-1</div></div>
+  <div class="surface "><div class="key_name rows-1  len-2">-1</div></div>
 </div>
 </td>
 <td>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-2 ">@
+  <div class="surface "><div class="key_name rows-2  len-3">@
 2</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">W</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">W</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 "><span class="mod"><span class="LT">⌥</span></span>S</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1"><span class="mod"><span class="HRM">⌥</span></span><span class="mod_key">S</span></div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">X</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">X</div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key hidden">
-  <div class="surface "><div class="key_name rows-1 ">-1</div></div>
+  <div class="surface "><div class="key_name rows-1  len-2">-1</div></div>
 </div>
 </td>
 <td>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-2 ">#
+  <div class="surface "><div class="key_name rows-2  len-3">#
 3</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">E<div class="hl ml-1">&middot;&middot;&euro;</div></div></div>
+  <div class="surface "><div class="key_name rows-1  len-2">E<div class="hl ml-1">&middot;&middot;&euro;</div></div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 "><span class="mod"><span class="LT">⇧</span></span>D</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1"><span class="mod"><span class="HRM">⇧</span></span><span class="mod_key">D</span></div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">C</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">C</div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 "><span class="mod"><span class="LT">MOUSE</span></span>&amp;nbsp;</div></div>
+  <div class="surface "><div class="key_name rows-1  len-3"><span class="mod"><span class="LT">MOUSE</span></span><span class="mod_key"></span></div></div>
 </div>
 </td>
 <td>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-2 ">$
+  <div class="surface "><div class="key_name rows-2  len-3">$
 4</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">R</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">R</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 "><span class="mod"><span class="LT">⌘</span></span>F</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1"><span class="mod"><span class="HRM">⌘</span></span><span class="mod_key">F</span></div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">V</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">V</div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 "><span class="mod"><span class="LT">PROG</span></span>⌦</div></div>
+  <div class="surface "><div class="key_name rows-1  len-3"><span class="mod"><span class="LT">PROG</span></span><span class="mod_key">⌦</span></div></div>
 </div>
 </td>
 <td>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-2 ">%
+  <div class="surface "><div class="key_name rows-2  len-3">%
 5</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">T</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">T</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 "><span class="mod"><span class="LT">⌥R</span></span>G</div></div>
+  <div class="surface "><div class="key_name rows-1  len-2"><span class="mod"><span class="HRM">⌥ᴿ</span></span><span class="mod_key">G</span></div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">B</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">B</div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 "><span class="mod"><span class="LT">NAVI</span></span>⎵</div></div>
+  <div class="surface "><div class="key_name rows-1  len-3"><span class="mod"><span class="LT">NAVI</span></span><span class="mod_key">⎵</span></div></div>
 </div>
 </td>
 <td class="vsep">&nbsp;&nbsp;&nbsp;</td>
 <td>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-2 ">^
+  <div class="surface "><div class="key_name rows-2  len-3">^
 6</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">Y</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">Y</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 "><span class="mod"><span class="LT">⌥R</span></span>H</div></div>
+  <div class="surface "><div class="key_name rows-1  len-2"><span class="mod"><span class="HRM">⌥ᴿ</span></span><span class="mod_key">H</span></div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">N</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">N</div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 "><span class="mod"><span class="LT">MEDIA</span></span>↵</div></div>
+  <div class="surface "><div class="key_name rows-1  len-3"><span class="mod"><span class="LT">MEDIA</span></span><span class="mod_key">↵</span></div></div>
 </div>
 </td>
 <td>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-2 ">&
+  <div class="surface "><div class="key_name rows-2  len-3">&
 7</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">U</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">U</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 "><span class="mod"><span class="LT">⌘R</span></span>J</div></div>
+  <div class="surface "><div class="key_name rows-1  len-2"><span class="mod"><span class="HRM">⌘ᴿ</span></span><span class="mod_key">J</span></div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">M</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">M</div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 "><span class="mod"><span class="LT">FUNC</span></span>⌫</div></div>
+  <div class="surface "><div class="key_name rows-1  len-3"><span class="mod"><span class="LT">FUNC</span></span><span class="mod_key">⌫</span></div></div>
 </div>
 </td>
 <td>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-2 ">*
+  <div class="surface "><div class="key_name rows-2  len-3">*
 8</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">I</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">I</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 "><span class="mod"><span class="LT">⇧R</span></span>K</div></div>
+  <div class="surface "><div class="key_name rows-1  len-2"><span class="mod"><span class="HRM">⇧ᴿ</span></span><span class="mod_key">K</span></div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-2 "><
+  <div class="surface "><div class="key_name rows-2  len-3"><
 ,</div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 "><span class="mod"><span class="LT">CUST</span></span>&amp;nbsp;</div></div>
+  <div class="surface "><div class="key_name rows-1  len-3"><span class="mod"><span class="LT">CUST</span></span><span class="mod_key"></span></div></div>
 </div>
 </td>
 <td>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-2 ">(
+  <div class="surface "><div class="key_name rows-2  len-3">(
 9</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">O</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">O</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 "><span class="mod"><span class="LT">⌥</span></span>L</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1"><span class="mod"><span class="HRM">⌥</span></span><span class="mod_key">L</span></div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-2 ">>
+  <div class="surface "><div class="key_name rows-2  len-3">>
 .</div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key hidden">
-  <div class="surface "><div class="key_name rows-1 ">-1</div></div>
+  <div class="surface "><div class="key_name rows-1  len-2">-1</div></div>
 </div>
 </td>
 <td>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-2 ">)
+  <div class="surface "><div class="key_name rows-2  len-3">)
 0</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">P</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">P</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 "><span class="mod"><span class="LT">❁R</span></span>&quot;
-&#39;</div></div>
+  <div class="surface "><div class="key_name rows-2  len-2"><span class="mod"><span class="HRM">❁ᴿ</span></span><span class="mod_key">&quot;
+&#39;</span></div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-2 ">?
+  <div class="surface "><div class="key_name rows-2  len-3">?
 /</div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key hidden">
-  <div class="surface "><div class="key_name rows-1 ">-1</div></div>
+  <div class="surface "><div class="key_name rows-1  len-2">-1</div></div>
 </div>
 </td>
 <td>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-2 ">_
+  <div class="surface "><div class="key_name rows-2  len-3">_
 -</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-2 ">+
+  <div class="surface "><div class="key_name rows-2  len-3">+
 =</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-2 ">|
+  <div class="surface "><div class="key_name rows-2  len-3">|
 \</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-2 ">:
+  <div class="surface "><div class="key_name rows-2  len-3">:
 ;</div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key hidden">
-  <div class="surface "><div class="key_name rows-1 ">-1</div></div>
+  <div class="surface "><div class="key_name rows-1  len-2">-1</div></div>
 </div>
 </td>
 </tr></table>
 <table class="mb-3"><tr><td colspan="13"><div class="title is-5 m-0 has-text-centered">1 &middot; PROG / SYMBOLS</div></td></tr><tr>
 <td>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">∇</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">∇</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">∇</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">∇</div></div>
 </div>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key hidden">
-  <div class="surface "><div class="key_name rows-1 ">-1</div></div>
+  <div class="surface "><div class="key_name rows-1  len-2">-1</div></div>
 </div>
 </td>
 <td>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key ">
   <div class="surface "><div class="key_name rows-1 ">!</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">∇</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">∇</div></div>
 </div>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key hidden">
-  <div class="surface "><div class="key_name rows-1 ">-1</div></div>
+  <div class="surface "><div class="key_name rows-1  len-2">-1</div></div>
 </div>
 </td>
 <td>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key ">
   <div class="surface "><div class="key_name rows-1 ">@</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">∇</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">∇</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">\</div></div>
+  <div class="surface "><div class="key_name rows-1  len-3">\</div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key hidden">
-  <div class="surface "><div class="key_name rows-1 ">-1</div></div>
+  <div class="surface "><div class="key_name rows-1  len-2">-1</div></div>
 </div>
 </td>
 <td>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key ">
   <div class="surface "><div class="key_name rows-1 ">#</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">∇</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">∇</div></div>
 </div>
 <div class="key ">
   <div class="surface "><div class="key_name rows-1 ">|</div></div>
@@ -447,32 +490,32 @@
   <div>column shift</div>
 </div>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 </td>
 <td>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key ">
   <div class="surface "><div class="key_name rows-1 ">$</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">∇</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">∇</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">/</div></div>
+  <div class="surface "><div class="key_name rows-1  len-3">/</div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 </td>
 <td>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key ">
   <div class="surface "><div class="key_name rows-1 ">%</div></div>
@@ -487,19 +530,19 @@
   <div>column shift</div>
 </div>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 </td>
 <td class="vsep">&nbsp;&nbsp;&nbsp;</td>
 <td>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">=</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">=</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">*</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">*</div></div>
 </div>
 <div class="key ">
   <div class="surface "><div class="key_name rows-1 ">~</div></div>
@@ -508,15 +551,15 @@
   <div>column shift</div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger1">⌘</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger1 len-1">⌘</div></div>
 </div>
 </td>
 <td>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger1">`</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger1 len-3">`</div></div>
 </div>
 <div class="key ">
   <div class="surface "><div class="key_name rows-1 ">(</div></div>
@@ -528,35 +571,35 @@
   <div>column shift</div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger2">⇧</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger2 len-1">⇧</div></div>
 </div>
 </td>
 <td>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key ">
   <div class="surface "><div class="key_name rows-1 ">:</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">[</div></div>
+  <div class="surface "><div class="key_name rows-1  len-3">[</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">]</div></div>
+  <div class="surface "><div class="key_name rows-1  len-3">]</div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger1">⌥</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger1 len-1">⌥</div></div>
 </div>
 </td>
 <td>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">;</div></div>
+  <div class="surface "><div class="key_name rows-1  len-3">;</div></div>
 </div>
 <div class="key ">
   <div class="surface "><div class="key_name rows-1 ">{</div></div>
@@ -568,18 +611,18 @@
   <div>column shift</div>
 </div>
 <div class="key hidden">
-  <div class="surface "><div class="key_name rows-1 ">-1</div></div>
+  <div class="surface "><div class="key_name rows-1  len-2">-1</div></div>
 </div>
 </td>
 <td>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">+</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">+</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger1">-</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger1 len-1">-</div></div>
 </div>
 <div class="key ">
   <div class="surface "><div class="key_name rows-1 bigger3">_</div></div>
@@ -588,1001 +631,1001 @@
   <div>column shift</div>
 </div>
 <div class="key hidden">
-  <div class="surface "><div class="key_name rows-1 ">-1</div></div>
+  <div class="surface "><div class="key_name rows-1  len-2">-1</div></div>
 </div>
 </td>
 <td>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key hidden">
-  <div class="surface "><div class="key_name rows-1 ">-1</div></div>
+  <div class="surface "><div class="key_name rows-1  len-2">-1</div></div>
 </div>
 </td>
 </tr></table>
 <table class="mb-3"><tr><td colspan="13"><div class="title is-5 m-0 has-text-centered">2 &middot; NAVI / NAVIGATION</div></td></tr><tr>
 <td>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">∇</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">∇</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">∇</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">∇</div></div>
 </div>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key hidden">
-  <div class="surface "><div class="key_name rows-1 ">-1</div></div>
+  <div class="surface "><div class="key_name rows-1  len-2">-1</div></div>
 </div>
 </td>
 <td>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">R</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">R</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 "><span class="mod">⌘</span>F5</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1"><span class="mod">⌘</span><span class="mod_key">F5</span></div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">∇</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">∇</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 combo"><span class="mod">⌘</span>Z</div></div>
+  <div class="surface "><div class="key_name rows-1 combo len-1"><span class="mod">⌘</span><span class="mod_key">Z</span></div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key hidden">
-  <div class="surface "><div class="key_name rows-1 ">-1</div></div>
+  <div class="surface "><div class="key_name rows-1  len-2">-1</div></div>
 </div>
 </td>
 <td>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">E</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">E</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">⭆</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">⭆</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">∇</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">∇</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 combo"><span class="mod">⇧</span>⌦</div></div>
+  <div class="surface "><div class="key_name rows-1 combo len-1"><span class="mod">⇧</span><span class="mod_key">⌦</span></div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key hidden">
-  <div class="surface "><div class="key_name rows-1 ">-1</div></div>
+  <div class="surface "><div class="key_name rows-1  len-2">-1</div></div>
 </div>
 </td>
 <td>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">I</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">I</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger2">⎋</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger2 len-1">⎋</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">∇</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">∇</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 combo"><span class="mod">⌘</span>↯</div></div>
+  <div class="surface "><div class="key_name rows-1 combo len-1"><span class="mod">⌘</span><span class="mod_key">↯</span></div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 </td>
 <td>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">S</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">S</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">⭅</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">⭅</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">∇</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">∇</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 combo"><span class="mod">⇧</span>↯</div></div>
+  <div class="surface "><div class="key_name rows-1 combo len-1"><span class="mod">⇧</span><span class="mod_key">↯</span></div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 </td>
 <td>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">U</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">U</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger1">↯</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger1 len-1">↯</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">∇</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">∇</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 combo"><span class="mod">⌘</span>Y</div></div>
+  <div class="surface "><div class="key_name rows-1 combo len-1"><span class="mod">⌘</span><span class="mod_key">Y</span></div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 </td>
 <td class="vsep">&nbsp;&nbsp;&nbsp;</td>
 <td>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">B</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">B</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger2">↟</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger2 len-1">↟</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger2">↡</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger2 len-1">↡</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger1">↯</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger1 len-1">↯</div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger2">↵</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger2 len-1">↵</div></div>
 </div>
 </td>
 <td>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger2">⇱</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger2 len-1">⇱</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger1">⭠︎</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger1 len-2">⭠︎</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger1">⌫</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger1 len-1">⌫</div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger3">⎵</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger3 len-1">⎵</div></div>
 </div>
 </td>
 <td>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger1">⭡</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger1 len-1">⭡</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger1">⭣</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger1 len-1">⭣</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger2">⇥</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger2 len-1">⇥</div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger1">↯</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger1 len-1">↯</div></div>
 </div>
 </td>
 <td>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger2">⇲</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger2 len-1">⇲</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger1">⭢︎</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger1 len-2">⭢︎</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 combo">☰</div></div>
+  <div class="surface "><div class="key_name rows-1 combo len-1">☰</div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key hidden">
-  <div class="surface "><div class="key_name rows-1 ">-1</div></div>
+  <div class="surface "><div class="key_name rows-1  len-2">-1</div></div>
 </div>
 </td>
 <td>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">۩</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">۩</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger1">⌦</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger1 len-1">⌦</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 combo"><span class="mod">⇧</span>☰</div></div>
+  <div class="surface "><div class="key_name rows-1 combo len-1"><span class="mod">⇧</span><span class="mod_key">☰</span></div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key hidden">
-  <div class="surface "><div class="key_name rows-1 ">-1</div></div>
+  <div class="surface "><div class="key_name rows-1  len-2">-1</div></div>
 </div>
 </td>
 <td>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger1">⌥</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger1 len-1">⌥</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger1">⎙︎</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger1 len-2">⎙︎</div></div>
 </div>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key hidden">
-  <div class="surface "><div class="key_name rows-1 ">-1</div></div>
+  <div class="surface "><div class="key_name rows-1  len-2">-1</div></div>
 </div>
 </td>
 </tr></table>
 <table class="mb-3"><tr><td colspan="13"><div class="title is-5 m-0 has-text-centered">3 &middot; MEDIA / NUMBERS</div></td></tr><tr>
 <td>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">∇</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">∇</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">∇</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">∇</div></div>
 </div>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key hidden">
-  <div class="surface "><div class="key_name rows-1 ">-1</div></div>
+  <div class="surface "><div class="key_name rows-1  len-2">-1</div></div>
 </div>
 </td>
 <td>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">∇</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">∇</div></div>
 </div>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key hidden">
-  <div class="surface "><div class="key_name rows-1 ">-1</div></div>
+  <div class="surface "><div class="key_name rows-1  len-2">-1</div></div>
 </div>
 </td>
 <td>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">∇</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">∇</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger2">⇥</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger2 len-1">⇥</div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key hidden">
-  <div class="surface "><div class="key_name rows-1 ">-1</div></div>
+  <div class="surface "><div class="key_name rows-1  len-2">-1</div></div>
 </div>
 </td>
 <td>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 combo"><span class="mod">⌘</span>D</div></div>
+  <div class="surface "><div class="key_name rows-1 combo len-1"><span class="mod">⌘</span><span class="mod_key">D</span></div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">∇</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">∇</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger1">⌫</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger1 len-1">⌫</div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 </td>
 <td>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 combo"><span class="mod">⌘</span>C</div></div>
+  <div class="surface "><div class="key_name rows-1 combo len-1"><span class="mod">⌘</span><span class="mod_key">C</span></div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">∇</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">∇</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-2 ">Num
+  <div class="surface "><div class="key_name rows-2  len-5">Num
 ↵</div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger3">⎵</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger3 len-1">⎵</div></div>
 </div>
 </td>
 <td>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-2 ">Num
+  <div class="surface "><div class="key_name rows-2  len-6">Num
 🔒︎</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">∇</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">∇</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger3">⎵</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger3 len-1">⎵</div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger2">↵</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger2 len-1">↵</div></div>
 </div>
 </td>
 <td class="vsep">&nbsp;&nbsp;&nbsp;</td>
 <td>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">=</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">=</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">*</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">*</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">0</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">0</div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 </td>
 <td>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">7</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">7</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">4</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">4</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">1</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">1</div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 </td>
 <td>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">8</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">8</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">5</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">5</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">2</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">2</div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 </td>
 <td>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">9</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">9</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">6</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">6</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">3</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">3</div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key hidden">
-  <div class="surface "><div class="key_name rows-1 ">-1</div></div>
+  <div class="surface "><div class="key_name rows-1  len-2">-1</div></div>
 </div>
 </td>
 <td>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">+</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">+</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger1">-</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger1 len-1">-</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">/</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">/</div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key hidden">
-  <div class="surface "><div class="key_name rows-1 ">-1</div></div>
+  <div class="surface "><div class="key_name rows-1  len-2">-1</div></div>
 </div>
 </td>
 <td>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger1">⌫</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger1 len-1">⌫</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">.</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">.</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">,</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">,</div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key hidden">
-  <div class="surface "><div class="key_name rows-1 ">-1</div></div>
+  <div class="surface "><div class="key_name rows-1  len-2">-1</div></div>
 </div>
 </td>
 </tr></table>
 <table class="mb-3"><tr><td colspan="13"><div class="title is-5 m-0 has-text-centered">4 &middot; FUNC / FUNCTIONS</div></td></tr><tr>
 <td>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">∇</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">∇</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">∇</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">∇</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger2">⏹︎</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger2 len-2">⏹︎</div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key hidden">
-  <div class="surface "><div class="key_name rows-1 ">-1</div></div>
+  <div class="surface "><div class="key_name rows-1  len-2">-1</div></div>
 </div>
 </td>
 <td>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger2">🖩</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger1 len-1">🖩</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">∇</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">∇</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger2">⏯︎</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger2 len-2">⏯︎</div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key hidden">
-  <div class="surface "><div class="key_name rows-1 ">-1</div></div>
+  <div class="surface "><div class="key_name rows-1  len-2">-1</div></div>
 </div>
 </td>
 <td>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger2">✉</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger2 len-1">✉</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">∇</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">∇</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">🕪×</div></div>
+  <div class="surface "><div class="key_name rows-1  len-2">🕪×</div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key hidden">
-  <div class="surface "><div class="key_name rows-1 ">-1</div></div>
+  <div class="surface "><div class="key_name rows-1  len-2">-1</div></div>
 </div>
 </td>
 <td>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">모</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">모</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">∇</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">∇</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">🕪-</div></div>
+  <div class="surface "><div class="key_name rows-1  len-2">🕪-</div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 "><span class="TO">MOUSE</span></div></div>
+  <div class="surface "><div class="key_name rows-1  len-2"><span class="TO">MOUSE</span></div></div>
 </div>
 </td>
 <td>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger1">☀</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger1 len-1">☀</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">∇</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">∇</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">🕪+</div></div>
+  <div class="surface "><div class="key_name rows-1  len-2">🕪+</div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger3">⎵</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger3 len-1">⎵</div></div>
 </div>
 </td>
 <td>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger1">☼</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger1 len-1">☼</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">∇</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">∇</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger2">♫</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger2 len-1">♫</div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger2">↵</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger2 len-1">↵</div></div>
 </div>
 </td>
 <td class="vsep">&nbsp;&nbsp;&nbsp;</td>
 <td>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key ">
   <div class="surface "><div class="key_name rows-1 ">*</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger1">↯</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger1 len-1">↯</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 combo"><span class="mod">⌘</span>T</div></div>
+  <div class="surface "><div class="key_name rows-1 combo len-1"><span class="mod">⌘</span><span class="mod_key">T</span></div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 </td>
 <td>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">F9</div></div>
+  <div class="surface "><div class="key_name rows-1  len-2">F9</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">F5</div></div>
+  <div class="surface "><div class="key_name rows-1  len-2">F5</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">F1</div></div>
+  <div class="surface "><div class="key_name rows-1  len-2">F1</div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 </td>
 <td>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">F10</div></div>
+  <div class="surface "><div class="key_name rows-1  len-3">F10</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">F6</div></div>
+  <div class="surface "><div class="key_name rows-1  len-2">F6</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">F2</div></div>
+  <div class="surface "><div class="key_name rows-1  len-2">F2</div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 </td>
 <td>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">F11</div></div>
+  <div class="surface "><div class="key_name rows-1  len-3">F11</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">F7</div></div>
+  <div class="surface "><div class="key_name rows-1  len-2">F7</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">F3</div></div>
+  <div class="surface "><div class="key_name rows-1  len-2">F3</div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key hidden">
-  <div class="surface "><div class="key_name rows-1 ">-1</div></div>
+  <div class="surface "><div class="key_name rows-1  len-2">-1</div></div>
 </div>
 </td>
 <td>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">F12</div></div>
+  <div class="surface "><div class="key_name rows-1  len-3">F12</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">F8</div></div>
+  <div class="surface "><div class="key_name rows-1  len-2">F8</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">F4</div></div>
+  <div class="surface "><div class="key_name rows-1  len-2">F4</div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key hidden">
-  <div class="surface "><div class="key_name rows-1 ">-1</div></div>
+  <div class="surface "><div class="key_name rows-1  len-2">-1</div></div>
 </div>
 </td>
 <td>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">+</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">+</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger1">-</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger1 len-1">-</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger2">⏏</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger2 len-1">⏏</div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key hidden">
-  <div class="surface "><div class="key_name rows-1 ">-1</div></div>
+  <div class="surface "><div class="key_name rows-1  len-2">-1</div></div>
 </div>
 </td>
 </tr></table>
 <table class="mb-3"><tr><td colspan="13"><div class="title is-5 m-0 has-text-centered">5 &middot; MOUSE / MOUSE & BROWSER</div></td></tr><tr>
 <td>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">∇</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">∇</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">∇</div></div>
+  <div class="surface "><div class="key_name rows-1  len-1">∇</div></div>
 </div>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key hidden">
-  <div class="surface "><div class="key_name rows-1 ">-1</div></div>
+  <div class="surface "><div class="key_name rows-1  len-2">-1</div></div>
 </div>
 </td>
 <td>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 combo"><span class="mod">⌥</span>1</div></div>
+  <div class="surface "><div class="key_name rows-1 combo len-1"><span class="mod">⌥</span><span class="mod_key">1</span></div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 "><span class="mod">LCS</span>T</div></div>
+  <div class="surface "><div class="key_name rows-1  len-2"><span class="mod">⌘⇧</span><span class="mod_key">T</span></div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 combo"><span class="mod">⌘</span>W</div></div>
+  <div class="surface "><div class="key_name rows-1 combo len-1"><span class="mod">⌘</span><span class="mod_key">W</span></div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 combo"><span class="mod">⌘</span>W</div></div>
+  <div class="surface "><div class="key_name rows-1 combo len-1"><span class="mod">⌘</span><span class="mod_key">W</span></div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key hidden">
-  <div class="surface "><div class="key_name rows-1 ">-1</div></div>
+  <div class="surface "><div class="key_name rows-1  len-2">-1</div></div>
 </div>
 </td>
 <td>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 combo"><span class="mod">⌥</span>2</div></div>
+  <div class="surface "><div class="key_name rows-1 combo len-1"><span class="mod">⌥</span><span class="mod_key">2</span></div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 "><span class="mod">LCS</span>⇥</div></div>
+  <div class="surface "><div class="key_name rows-1  len-2"><span class="mod">⌘⇧</span><span class="mod_key">⇥</span></div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">🖱➂</div></div>
+  <div class="surface "><div class="key_name rows-1  len-2">🖱➂</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 combo"><span class="mod">⌘</span>⇥</div></div>
+  <div class="surface "><div class="key_name rows-1 combo len-1"><span class="mod">⌘</span><span class="mod_key">⇥</span></div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key hidden">
-  <div class="surface "><div class="key_name rows-1 ">-1</div></div>
+  <div class="surface "><div class="key_name rows-1  len-2">-1</div></div>
 </div>
 </td>
 <td>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 combo"><span class="mod">⌥</span>3</div></div>
+  <div class="surface "><div class="key_name rows-1 combo len-1"><span class="mod">⌥</span><span class="mod_key">3</span></div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger4">🖱↟</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger4 len-2">🖱↟</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">🖱➁</div></div>
+  <div class="surface "><div class="key_name rows-1  len-2">🖱➁</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger4">🖱↞</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger4 len-2">🖱↞</div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger2">⇧</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger2 len-1">⇧</div></div>
 </div>
 </td>
 <td>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 combo"><span class="mod">⌥</span>4</div></div>
+  <div class="surface "><div class="key_name rows-1 combo len-1"><span class="mod">⌥</span><span class="mod_key">4</span></div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger4">🖱↡</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger4 len-2">🖱↡</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 ">🖱➀</div></div>
+  <div class="surface "><div class="key_name rows-1  len-2">🖱➀</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger4">🖱↠</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger4 len-2">🖱↠</div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger1">⌥</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger1 len-1">⌥</div></div>
 </div>
 </td>
 <td>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 combo"><span class="mod">⌥</span>5</div></div>
+  <div class="surface "><div class="key_name rows-1 combo len-1"><span class="mod">⌥</span><span class="mod_key">5</span></div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 combo"><span class="mod">⌘</span>A</div></div>
+  <div class="surface "><div class="key_name rows-1 combo len-1"><span class="mod">⌘</span><span class="mod_key">A</span></div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 combo"><span class="mod">⌘</span>C</div></div>
+  <div class="surface "><div class="key_name rows-1 combo len-1"><span class="mod">⌘</span><span class="mod_key">C</span></div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 combo"><span class="mod">⌘</span>V</div></div>
+  <div class="surface "><div class="key_name rows-1 combo len-1"><span class="mod">⌘</span><span class="mod_key">V</span></div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger1">⌘</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger1 len-1">⌘</div></div>
 </div>
 </td>
 <td class="vsep">&nbsp;&nbsp;&nbsp;</td>
 <td>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 combo"><span class="mod">⌥</span>6</div></div>
+  <div class="surface "><div class="key_name rows-1 combo len-1"><span class="mod">⌥</span><span class="mod_key">6</span></div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger1">⌦</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger1 len-1">⌦</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger1">⌫</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger1 len-1">⌫</div></div>
 </div>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger2">↵</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger2 len-1">↵</div></div>
 </div>
 </td>
 <td>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 combo"><span class="mod">⌥</span>7</div></div>
+  <div class="surface "><div class="key_name rows-1 combo len-1"><span class="mod">⌥</span><span class="mod_key">7</span></div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger2">↟</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger2 len-1">↟</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger2">↡</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger2 len-1">↡</div></div>
 </div>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger3">⎵</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger3 len-1">⎵</div></div>
 </div>
 </td>
 <td>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 combo"><span class="mod">⌥</span>8</div></div>
+  <div class="surface "><div class="key_name rows-1 combo len-1"><span class="mod">⌥</span><span class="mod_key">8</span></div></div>
 </div>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 "><span class="TO">MOUSE</span></div></div>
+  <div class="surface "><div class="key_name rows-1  len-2"><span class="TO">MOUSE</span></div></div>
 </div>
 </td>
 <td>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 combo"><span class="mod">⌥</span>9</div></div>
+  <div class="surface "><div class="key_name rows-1 combo len-1"><span class="mod">⌥</span><span class="mod_key">9</span></div></div>
 </div>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key ">
-  <div class="surface noop"><div class="key_name rows-1 ">&nbsp;</div></div>
+  <div class="surface noop"><div class="key_name rows-1  len-0">&nbsp;</div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key hidden">
-  <div class="surface "><div class="key_name rows-1 ">-1</div></div>
+  <div class="surface "><div class="key_name rows-1  len-2">-1</div></div>
 </div>
 </td>
 <td>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 combo"><span class="mod">⌥</span>0</div></div>
+  <div class="surface "><div class="key_name rows-1 combo len-1"><span class="mod">⌥</span><span class="mod_key">0</span></div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger4">🖱⋅</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger4 len-2">🖱⋅</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger4">🖱∶</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger4 len-2">🖱∶</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger4">🖱∴</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger4 len-2">🖱∴</div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key hidden">
-  <div class="surface "><div class="key_name rows-1 ">-1</div></div>
+  <div class="surface "><div class="key_name rows-1  len-2">-1</div></div>
 </div>
 </td>
 <td>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger4">🖱+</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger4 len-6">🖱+</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger4">🖱-</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger4 len-6">🖱-</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger4">🖱L</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger4 len-6">🖱L</div></div>
 </div>
 <div class="key ">
-  <div class="surface "><div class="key_name rows-1 bigger4">🖱D</div></div>
+  <div class="surface "><div class="key_name rows-1 bigger4 len-6">🖱D</div></div>
 </div>
 <div class="key hidden shift" style="max-height: 0.00rem">
   <div>column shift</div>
 </div>
 <div class="key hidden">
-  <div class="surface "><div class="key_name rows-1 ">-1</div></div>
+  <div class="surface "><div class="key_name rows-1  len-2">-1</div></div>
 </div>
 </td>
 </tr></table>

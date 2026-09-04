@@ -159,10 +159,10 @@ begin
   add_key_def("KC_LSHIFT", "⇧", aliases: ["KC_LSFT"]) # LSft
   add_key_def("KC_LALT", "⌥", aliases: ["KC_LOPT"])  # LAlt
   add_key_def("KC_LGUI", "❁", aliases: ["KC_LCMD", "KC_LWIN"]) # LGui
-  add_key_def("KC_RCTRL", "⌘R", aliases: ["KC_RCTL"]) # RCtl
-  add_key_def("KC_RSHIFT", "⇧R", aliases: ["KC_RSFT"]) # RSft
-  add_key_def("KC_RALT", "⌥R", aliases: ["KC_ALGR", "KC_ROPT"]) # RAlt
-  add_key_def("KC_RGUI", "❁R", aliases: ["KC_RCMD", "KC_RWIN"]) # RGui
+  add_key_def("KC_RCTRL", "⌘ᴿ", aliases: ["KC_RCTL"]) # RCtl
+  add_key_def("KC_RSHIFT", "⇧ᴿ", aliases: ["KC_RSFT"]) # RSft
+  add_key_def("KC_RALT", "⌥ᴿ", aliases: ["KC_ALGR", "KC_ROPT"]) # RAlt
+  add_key_def("KC_RGUI", "❁ᴿ", aliases: ["KC_RCMD", "KC_RWIN"]) # RGui
 
   # KEYCODES_SHIFTED
   add_key_def("KC_TILD", "~")
@@ -241,11 +241,11 @@ begin
   add_key_def("LCTL", "⌘", masked: true) # LCtl
   add_key_def("LALT", "⌥", masked: true) # LAlt
   add_key_def("LGUI", "❁", masked: true) # LGui
-  add_key_def("RSFT", "⇧R", masked: true) # RSft
-  add_key_def("RCTL", "⌘R", masked: true) # RCtl
-  add_key_def("RALT", "⌥R", masked: true) # RAlt
-  add_key_def("RGUI", "❁R", masked: true) # RGui
-  add_key_def("C_S", "LCS", "LCTL + LSFT", masked: true, aliases: ["LCS"])
+  add_key_def("RSFT", "⇧ᴿ", masked: true) # RSft
+  add_key_def("RCTL", "⌘ᴿ", masked: true) # RCtl
+  add_key_def("RALT", "⌥ᴿ", masked: true) # RAlt
+  add_key_def("RGUI", "❁ᴿ", masked: true) # RGui
+  add_key_def("C_S", "⌘⇧", "LCTL + LSFT", masked: true, aliases: ["LCS"]) # LCS
   add_key_def("LCA", "LCA", "LCTL + LALT", masked: true)
   add_key_def("LCG", "LCG", "LCTL + LGUI", masked: true)
   add_key_def("LSA", "LSA", "LSFT + LALT", masked: true)
@@ -260,10 +260,10 @@ begin
   add_key_def("LCTL_T", "⌘_T", "Left Control when held, kc when tapped", masked: true) # LCtl_T
   add_key_def("LALT_T", "⌥_T", "Left Alt when held, kc when tapped", masked: true) # LAlt_T
   add_key_def("LGUI_T", "❁_T", "Left GUI when held, kc when tapped", masked: true) # LGui_T
-  add_key_def("RSFT_T", "⇧R_T", "Right Shift when held, kc when tapped", masked: true) # RSft_T
-  add_key_def("RCTL_T", "⌘R_T", "Right Control when held, kc when tapped", masked: true) # RCtl_T
-  add_key_def("RALT_T", "⌥R_T", "Right Alt when held, kc when tapped", masked: true) # RAlt_T
-  add_key_def("RGUI_T", "❁R_T", "Right GUI when held, kc when tapped", masked: true) # RGui_T
+  add_key_def("RSFT_T", "⇧ᴿ_T", "Right Shift when held, kc when tapped", masked: true) # RSft_T
+  add_key_def("RCTL_T", "⌘ᴿ_T", "Right Control when held, kc when tapped", masked: true) # RCtl_T
+  add_key_def("RALT_T", "⌥ᴿ_T", "Right Alt when held, kc when tapped", masked: true) # RAlt_T
+  add_key_def("RGUI_T", "❁ᴿ_T", "Right GUI when held, kc when tapped", masked: true) # RGui_T
   add_key_def("C_S_T", "LCS_T", "Left Control + Left Shift when held, kc when tapped", masked: true, aliases: ["LCS_T"] )
   add_key_def("LCA_T", "LCA_T", "LCTL + LALT when held, kc when tapped", masked: true)
   add_key_def("LCG_T", "LCG_T", "LCTL + LGUI when held, kc when tapped", masked: true)
@@ -548,18 +548,74 @@ File.open(fout, 'w') do |f|
           
           & .key_name {
             margin-top: 0.5rem;
+
+            & .mod {
+              border-radius: 0.3rem;
+              background-color: #ddd;
+              border: 1px outset silver;
+
+              &:has(.LT, .HRM) {
+                position: relative;
+                padding: 0 0.2rem;
+                border: 0 none;
+                & + .mod_key { position: relative; }
+              }
+            }
+
             &.rows-1 {
               margin-top: 0.5rem; font-size: 1.5rem;
+              
               &.bigger1 { margin-top: -0.4rem; font-size: 3rem; }
               &.bigger2 { margin-top: -0.8rem; font-size: 3rem; }
               &.bigger3 { margin-top: -1.5rem; font-size: 3rem; }
               &.bigger4 { margin-top: 0;       font-size: 2rem; }
               &.combo   { margin-top: 0.1rem;  font-size: 2rem; }
+
+              & .mod:has(.LT, .HRM) {
+                top: -0.9rem;  left: -0.4rem;
+                & + .mod_key { top: 0; left: -0.6rem; }
+              }
+
+              & .mod:has(.LT) + .mod_key {
+                top: -0.9rem; left: 0;
+                display: inline-block;
+                line-height: 0.8rem;
+              }
+
+              &.len-2 .mod:has(.LT, .HRM) {
+                left: -0.3rem;
+                & + .mod_key { top: 0; left: -1.3rem; }
+              }
             }
-            &.rows-2 { margin-top: 0.1rem; font-size: 1.3rem; line-height: 1.3rem; }
+            &.rows-2 {
+              margin-top: 0.1rem; font-size: 1.3rem; line-height: 1.3rem;
+
+              & .mod:has(.LT, .HRM) {
+                font-size: 1.5rem;
+                top: -0.2rem;  left: -0.4rem;
+                & + .mod_key {
+                  top: -0.4rem; left: 0.3rem;
+                  display: inline-block;
+                  line-height: 0.8rem;
+                }
+              }
+            }
             &.rows-3 { margin-top: 0.2rem; }
-            
-            & .mod { background-color: #ddd; }
+
+            & .LT {
+              font-size: 1rem;
+              border-bottom: 1px solid black;
+            }
+
+            & .TO {
+              font-size: 0.9rem;
+              border: 1px solid black;
+              padding: 0.5rem 0.1rem;
+              position: relative;
+              left: -0.2rem;
+              top: 0.2rem;
+              background-color: #ddd;
+            }
           }
 
           & .fun_key {
@@ -574,30 +630,32 @@ File.open(fout, 'w') do |f|
             }
           }
 
-          & .LT, .TO {
-            background-color: #ddd;
-            padding: 0.1rem;
-            border-radius: 0.2rem;
-            border: 1px dotted black;
-          }
-          
-          & .TO {
-            border: 1px solid black;
-            padding: 0.5rem 0.1rem;
-            position: relative;
-            top: -0.5rem;
-          }
-          
           & .hl {
             padding: 0.02rem 0.15rem;
-            border-radius: 0.25rem;
-            background-color: #ccc;
+            position: relative;
+            bottom: 0.5rem;
+            font-size: 0.8rem;
           }
         }
       </style>
     </head>
     <body>
   HTML
+
+  def get_class(lbl)
+    small_syms1 = %w[ ↲ ⌘ ⌥ ⌫ ⌦ ⎙︎ 🖩 ↯ ⭡ ⭠︎ ⭣ ⭢︎ - ` ☀ ☼ ]
+    small_syms2 = %w[ ↵ ⎋ ⇧ ⇥ ⇱ ⇲ ↟ ↡ ✉ ⏹︎ ⏯︎ ♫ ⏏ ⎵ ]
+    small_syms3 = %w[ ⎵ _ ]
+    small_syms4 = %w[ 🖱↟ 🖱↡ 🖱↞ 🖱↠ 🖱+ 🖱- 🖱L 🖱D 🖱⋅ 🖱∶ 🖱∴ ]
+    combo = %w[ ☰ ]
+
+    klass = 'bigger1' if small_syms1.include?(lbl)
+    klass = 'bigger2' if small_syms2.include?(lbl)
+    klass = 'bigger3' if small_syms3.include?(lbl)
+    klass = 'bigger4' if small_syms4.include?(lbl)
+    klass = 'combo'   if combo.include?(lbl)
+    klass
+  end # get_class
 
   layers.each_with_index do |layer, layer_idx|
     keys = layer[0...5]
@@ -623,21 +681,6 @@ File.open(fout, 'w') do |f|
         HTML
       end
         
-      def get_class(lbl)
-        small_syms1 = %w[ ↲ ⌘ ⌥ ⌫ ⌦ ⎙︎ ↯ ⭡ ⭠︎ ⭣ ⭢︎ - ` ☀ ☼ ]
-        small_syms2 = %w[ ↵ ⎋ ⇧ ⇥ ⇱ ⇲ ↟ ↡ 🖩 ✉ ⏹︎ ⏯︎ ♫ ⏏ ⎵ ]
-        small_syms3 = %w[ ⎵ _ ]
-        small_syms4 = %w[ 🖱↟ 🖱↡ 🖱↞ 🖱↠ 🖱+ 🖱- 🖱L 🖱D 🖱⋅ 🖱∶ 🖱∴ ]
-        combo = %w[ ☰ ]
-
-        klass = 'bigger1' if small_syms1.include?(lbl)
-        klass = 'bigger2' if small_syms2.include?(lbl)
-        klass = 'bigger3' if small_syms3.include?(lbl)
-        klass = 'bigger4' if small_syms4.include?(lbl)
-        klass = 'combo'   if combo.include?(lbl)
-        klass
-      end # get_class
-      
       keys.each do |row|
         missing = row[col] == -1
         noop    = row[col] == 'KC_NO'
@@ -647,15 +690,14 @@ File.open(fout, 'w') do |f|
         key_code = $2 ? $1 : row[col]
         if has_arg
           key_arg = $key_defs[$2]&.[](:lbl) || "?#{$2}"
-          key_arg = '&nbsp;' if key_arg == ''
+          #key_arg = '&nbsp;' if key_arg == ''
         end
         
         key_def = $key_defs[key_code] || { lbl: $2 ? $1 : row[col].to_s.sub('KC_', '').sub('KP_', '') }
         
-        #lbl = row[col].to_s.sub('KC_', '').sub('KP_', '')
         key_code = key_def[:lbl]
-        #key_code.sub!(/_T/, '<span class="hl ml-1">&bullet;</span>')
-        key_code = %|<span class="LT">#{$1}</span>| if key_code =~ /(.+)_T/
+        key_code_chars = key_code.sub(/_T/, '').size
+        key_code = %|<span class="HRM">#{$1}</span>| if key_code =~ /(.+)_T/
         lbl = key_code.dup
         lbl = '∇' if row[col] == 'KC_TRNS'
         lbl = '&nbsp;' if noop
@@ -673,9 +715,6 @@ File.open(fout, 'w') do |f|
           lbl = %|<span class="TO">#{layer_names[$1.to_i][:code]}</span>|
         end
         
-        #lbl = has_arg \
-        #  ? %Q|<div class="fun_name">#{key_code}</div><div class="fun_key">#{key_arg}</div>|
-        #  : %Q|<div class="key_name rows-#{lbl.count("\n") + 1}">#{lbl}</div>|
         if has_arg
           is_short = "#{key_code}#{key_arg}".size == 2
           
@@ -683,23 +722,21 @@ File.open(fout, 'w') do |f|
             if key_code == '⇧'
               lbl = key_arg.split("\n")[0]
               lbl = %Q|<div class="key_name rows-1 #{get_class lbl}">#{lbl}</div>|
-            elsif %w[ ⌥ ⌥R ].include?(key_code)
+            elsif %w[ ⌥ ⌥ᴿ ].include?(key_code)
               key_arg = key_arg.split("\n")[1]
               is_short = "#{key_code}#{key_arg}".size == 2
-              lbl = %Q|<div class="key_name rows-1 #{'combo' if is_short}"><span class="mod">#{key_code}</span>#{CGI::escapeHTML key_arg}</div>|
+              lbl = %Q|<div class="key_name rows-1 #{'combo' if is_short} len-#{key_code_chars}"><span class="mod">#{key_code}</span><span class="mod_key">#{CGI::escapeHTML key_arg}</span></div>|
             else
-              lbl = %Q|<div class="key_name rows-1 #{'combo' if is_short}"><span class="mod">#{key_code}</span>#{CGI::escapeHTML key_arg}</div>|
+              lbl = %Q|<div class="key_name rows-#{key_arg.count("\n") + 1} #{'combo' if is_short} len-#{key_code_chars}"><span class="mod">#{key_code}</span><span class="mod_key">#{CGI::escapeHTML key_arg}</span></div>|
             end
           else
-            lbl = %Q|<div class="key_name rows-1 #{'combo' if is_short}"><span class="mod">#{key_code}</span>#{CGI::escapeHTML key_arg}</div>|
-            #lbl = %Q|<div class="fun_name">#{key_code}</div><div class="fun_key #{'short' if is_short}">#{key_arg}</div>|
+            lbl = %Q|<div class="key_name rows-1 #{'combo' if is_short} len-#{key_code_chars}"><span class="mod">#{key_code}</span><span class="mod_key">#{CGI::escapeHTML key_arg}</span></div>|
           end
         else
           lbl = lbl.split("\n")[1] if layer_names[layer_idx][:code] == :PROG && lbl.include?("\n")
-          lbl = %Q|<div class="key_name rows-#{lbl.count("\n") + 1} #{get_class lbl}">#{lbl}</div>|
+          lbl = %Q|<div class="key_name rows-#{lbl.count("\n") + 1} #{get_class lbl} len-#{key_code_chars}">#{lbl}</div>|
         end
 
-        
         # aggiungi tasto fantasma come spaziatore
         if row[0] == -1
           f.puts <<~HTML
