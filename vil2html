@@ -25,7 +25,8 @@ layer_names = [
 ]
 
 key_special = {
-  'TD(0)'  => { lbl: %Q|E<div class="hl ml-1">&middot;&middot;&euro;</div>| },
+  'TD(0)'  => { lbl: %Q|E<div class="hl ml-1">&middot;&bull;&euro;</div>| },
+  'TD(1)'  => { lbl: %Q|<span class="mod"><span class="LT">MOUSE</span></span><span class="mod_key">🖱</span>| },
   'USER00' => { lbl: "🖱+" }, # M.CPI\nIncr
   'USER01' => { lbl: "🖱-" }, # M.CPI\nDecr
   'USER02' => { lbl: "🖱L" }, # M.CPI\nLvl
@@ -697,6 +698,7 @@ File.open(fout, 'w') do |f|
         
         key_code = key_def[:lbl]
         key_code_chars = key_code.sub(/_T/, '').size
+        key_code_chars = 3 if key_code == 'TD' && key_arg == '?1'
         key_code = %|<span class="HRM">#{$1}</span>| if key_code =~ /(.+)_T/
         lbl = key_code.dup
         lbl = '∇' if row[col] == 'KC_TRNS'
