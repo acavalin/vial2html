@@ -12,7 +12,7 @@ end
 
 fin    = File.expand_path(ARGV[0])
 fout   = "#{File.basename fin, '.vil'}.htm"
-layers = JSON.load_file(fin)['layout'][0...6]
+layers = JSON.load_file(fin)['layout'][0..6]
 
 layer_names = [
   { code: :BASE , lbl: :DEFAULT },
@@ -75,8 +75,8 @@ begin
 
   # KEYCODES_BASIC_NAV
   add_key_def("KC_PSCREEN", "⎙︎", aliases: ["KC_PSCR"]) # Print\nScreen 🅿
-  add_key_def("KC_SCROLLLOCK", "Scroll\nLock", aliases: ["KC_SLCK", "KC_BRMD"])
-  add_key_def("KC_PAUSE", "Pause", aliases: ["KC_PAUS", "KC_BRK", "KC_BRMU"])
+  add_key_def("KC_SCROLLLOCK", "↨", aliases: ["KC_SLCK", "KC_BRMD"]) # Scroll\nLock Scr\nLck
+  add_key_def("KC_PAUSE", "⏸︎", aliases: ["KC_PAUS", "KC_BRK", "KC_BRMU"]) # Pause ℍ
   add_key_def("KC_INSERT", "↯", aliases: ["KC_INS"]) # Insert
   add_key_def("KC_HOME", "⇱") # Home
   add_key_def("KC_PGUP", "↟") # Page\nUp
@@ -420,9 +420,9 @@ begin
   add_key_def("KC_PWR", "Power", "System Power Down", aliases: ["KC_SYSTEM_POWER"])
   add_key_def("KC_SLEP", "Sleep", "System Sleep", aliases: ["KC_SYSTEM_SLEEP"])
   add_key_def("KC_WAKE", "Wake", "System Wake", aliases: ["KC_SYSTEM_WAKE"])
-  add_key_def("KC_EXEC", "Exec", "Execute", aliases: ["KC_EXECUTE"])
-  add_key_def("KC_HELP", "Help")
-  add_key_def("KC_SLCT", "Select", aliases: ["KC_SELECT"])
+  add_key_def("KC_EXEC", "⚙", "Execute", aliases: ["KC_EXECUTE"]) # Exec
+  add_key_def("KC_HELP", "⛨") # Help
+  add_key_def("KC_SLCT", "⿴", aliases: ["KC_SELECT"]) # Select
   add_key_def("KC_STOP", "Stop")
   add_key_def("KC_AGIN", "Again", aliases: ["KC_AGAIN"])
   add_key_def("KC_UNDO", "Undo")
@@ -496,6 +496,7 @@ File.open(fout, 'w') do |f|
         :root {
           --bg: #aaa;
           --bg-noop: white;
+          --bg-hold: #ccc;
         }
       
         table {
@@ -542,6 +543,9 @@ File.open(fout, 'w') do |f|
             &.noop {
               border: 1px solid silver;
               background-color: var(--bg-noop);
+            }
+            &.hold {
+              background-color: var(--bg-hold);
             }
           }
           
@@ -644,8 +648,8 @@ File.open(fout, 'w') do |f|
   HTML
 
   def get_class(lbl)
-    small_syms1 = %w[ ↲ ⌘ ⌥ ⌫ ⌦ ⎙︎ 🖩 ↯ ⭡ ⭠︎ ⭣ ⭢︎ - ` ☀ ☼ ]
-    small_syms2 = %w[ ↵ ⎋ ⇧ ⇥ ⇱ ⇲ ↟ ↡ ✉ ⏹︎ ⏯︎ ♫ ⏏ ⎵ ]
+    small_syms1 = %w[ ↲ ⌘ ⌥ ⌫ ⌦ ⎙︎ 🖩 ↯ ⭡ ⭠︎ ⭣ ⭢︎ - ` ☀ ☼ ⛨ ]
+    small_syms2 = %w[ ↵ ⎋ ⇧ ⇥ ⇱ ⇲ ↟ ↡ ↨ ✉ ⏹︎ ⏯︎ ⏸︎ ♫ ⏏ ⎵ ⚙ ]
     small_syms3 = %w[ ⎵ _ ]
     small_syms4 = %w[ 🖱↟ 🖱↡ 🖱↞ 🖱↠ 🖱+ 🖱- 🖱L 🖱D 🖱⋅ 🖱∶ 🖱∴ ]
     combo = %w[ ☰ ]
@@ -682,9 +686,10 @@ File.open(fout, 'w') do |f|
         HTML
       end
         
-      keys.each do |row|
+      keys.each_with_index do |row, row_idx|
         missing = row[col] == -1
         noop    = row[col] == 'KC_NO'
+        hold    = row[col] == 'KC_PAUSE' && row_idx == 4
 
         row[col].to_s =~ /(.+)\((.+)\)/
         has_arg  = !!$2
@@ -703,6 +708,14 @@ File.open(fout, 'w') do |f|
         lbl = key_code.dup
         lbl = '∇' if row[col] == 'KC_TRNS'
         lbl = '&nbsp;' if noop
+        lbl = '&nbsp;' if hold
+        
+        if key_code == 'OSM'
+          key_code = %|<span class="HRM">①</span>|
+          key_code_chars = 1
+          key_arg.sub! /.MOD_/, ''
+          lbl = key_arg = ($key_defs[key_arg]&.[](:lbl) || key_arg)
+        end
         
         if s = key_special[ row[col] ]
           has_arg, lbl = false, s[:lbl]
@@ -750,7 +763,7 @@ File.open(fout, 'w') do |f|
         
         f.puts <<~HTML
           <div class="key #{'hidden' if missing}">
-            <div class="surface #{'noop' if noop}">#{lbl}</div>
+            <div class="surface #{'noop' if noop} #{'hold' if hold}">#{lbl}</div>
           </div>
         HTML
       end
