@@ -6,13 +6,13 @@ require 'json'
 require 'cgi'
 
 unless (File.exist?(ARGV[0]))
-  puts "USO: #{File.basename __FILE__} file.vil"
+  puts "USO: #{File.basename __FILE__} file.vil [layer numbers]"
   exit 1
 end
 
-fin    = File.expand_path(ARGV[0])
+fin    = File.expand_path ARGV.shift
 fout   = "#{File.basename fin, '.vil'}.htm"
-layers = JSON.load_file(fin)['layout'][0..6]
+layers = JSON.load_file(fin)['layout']
 
 layer_names = [
   { code: :BASE , lbl: :DEFAULT },
@@ -665,7 +665,11 @@ File.open(fout, 'w') do |f|
     klass
   end # get_class
 
-  layers.each_with_index do |layer, layer_idx|
+  layers_nums = (ARGV.empty? ? %w[ 0 2 1 5 3 4 6 ] : ARGV).map(&:to_i)
+
+#  layers.each_with_index do |layer, layer_idx|
+  layers_nums.each_with_index do |layer_idx|
+    layer = layers[layer_idx.to_i]
     keys = layer[0...5]
 
     # accoda i seguenti reversed chunks ai rispettivi primi
