@@ -121,13 +121,16 @@
           border-bottom: 1px solid black;
         }
 
-        & .TO {
+        & .TO, .TG {
           font-size: 0.9rem;
           border: 1px solid black;
           padding: 0.5rem 0.1rem;
           position: relative;
           left: -0.2rem;
           top: 0.2rem;
+        }
+
+        & .TO {
           background-color: #ddd;
         }
       }
@@ -157,7 +160,7 @@
 <table class="mb-3"><tr><td colspan="13"><div class="title is-5 m-0 has-text-centered">0 &middot; BASE / DEFAULT</div></td></tr><tr>
 <td>
 <div class="key ">
-  <div class="surface  "><div class="key_name rows-1  len-2"><span class="TO">MOUSE</span></div></div>
+  <div class="surface  "><div class="key_name rows-1  len-2"><span class="TG">CUST</span></div></div>
 </div>
 <div class="key ">
   <div class="surface  "><div class="key_name rows-1 bigger2 len-1">⎋</div></div>
@@ -418,7 +421,7 @@
 <table class="mb-3"><tr><td colspan="13"><div class="title is-5 m-0 has-text-centered">1 &middot; PROG / SYMBOLS</div></td></tr><tr>
 <td>
 <div class="key ">
-  <div class="surface  "><div class="key_name rows-1  len-2"><span class="TO">PROG</span></div></div>
+  <div class="surface  "><div class="key_name rows-1  len-2"><span class="TG">PROG</span></div></div>
 </div>
 <div class="key ">
   <div class="surface noop "><div class="key_name rows-1  len-0">&nbsp;</div></div>
@@ -661,7 +664,7 @@
 <table class="mb-3"><tr><td colspan="13"><div class="title is-5 m-0 has-text-centered">2 &middot; NAVI / NAVIGATION</div></td></tr><tr>
 <td>
 <div class="key ">
-  <div class="surface  "><div class="key_name rows-1  len-2"><span class="TO">NAVI</span></div></div>
+  <div class="surface  "><div class="key_name rows-1  len-2"><span class="TG">NAVI</span></div></div>
 </div>
 <div class="key ">
   <div class="surface  "><div class="key_name rows-1  len-1">∇</div></div>
@@ -904,7 +907,7 @@
 <table class="mb-3"><tr><td colspan="13"><div class="title is-5 m-0 has-text-centered">3 &middot; MEDIA / NUMBERS</div></td></tr><tr>
 <td>
 <div class="key ">
-  <div class="surface  "><div class="key_name rows-1  len-2"><span class="TO">MEDIA</span></div></div>
+  <div class="surface  "><div class="key_name rows-1  len-2"><span class="TG">MEDIA</span></div></div>
 </div>
 <div class="key ">
   <div class="surface  "><div class="key_name rows-1  len-1">∇</div></div>
@@ -979,7 +982,7 @@
   <div>column shift</div>
 </div>
 <div class="key ">
-  <div class="surface  "><div class="key_name rows-1 bigger1 len-1">⌦</div></div>
+  <div class="surface  "><div class="key_name rows-1 bigger3 len-1">⎵</div></div>
 </div>
 </td>
 <td>
@@ -1000,7 +1003,7 @@
   <div>column shift</div>
 </div>
 <div class="key ">
-  <div class="surface  "><div class="key_name rows-1 bigger3 len-1">⎵</div></div>
+  <div class="surface  "><div class="key_name rows-1 bigger1 len-1">⌫</div></div>
 </div>
 </td>
 <td>
@@ -1021,7 +1024,7 @@
   <div>column shift</div>
 </div>
 <div class="key ">
-  <div class="surface  "><div class="key_name rows-1 bigger1 len-1">⌫</div></div>
+  <div class="surface  "><div class="key_name rows-1 bigger1 len-1">⌦</div></div>
 </div>
 </td>
 <td class="vsep">&nbsp;&nbsp;&nbsp;</td>
@@ -1149,7 +1152,7 @@
 <table class="mb-3"><tr><td colspan="13"><div class="title is-5 m-0 has-text-centered">4 &middot; FUNC / FUNCTIONS</div></td></tr><tr>
 <td>
 <div class="key ">
-  <div class="surface  "><div class="key_name rows-1  len-2"><span class="TO">FUNC</span></div></div>
+  <div class="surface  "><div class="key_name rows-1  len-2"><span class="TG">FUNC</span></div></div>
 </div>
 <div class="key ">
   <div class="surface  "><div class="key_name rows-1  len-1">∇</div></div>
@@ -1392,7 +1395,7 @@
 <table class="mb-3"><tr><td colspan="13"><div class="title is-5 m-0 has-text-centered">5 &middot; MOUSE / MOUSE & BROWSER</div></td></tr><tr>
 <td>
 <div class="key ">
-  <div class="surface  "><div class="key_name rows-1  len-2"><span class="TO">MOUSE</span></div></div>
+  <div class="surface  "><div class="key_name rows-1  len-2"><span class="TG">MOUSE</span></div></div>
 </div>
 <div class="key ">
   <div class="surface noop "><div class="key_name rows-1  len-0">&nbsp;</div></div>
@@ -1635,10 +1638,10 @@
 <table class="mb-3"><tr><td colspan="13"><div class="title is-5 m-0 has-text-centered">6 &middot; CUST / CUSTOM</div></td></tr><tr>
 <td>
 <div class="key ">
-  <div class="surface noop "><div class="key_name rows-1  len-0">&nbsp;</div></div>
+  <div class="surface  "><div class="key_name rows-1  len-2"><span class="TO">MOUSE</span></div></div>
 </div>
 <div class="key ">
-  <div class="surface noop "><div class="key_name rows-1  len-0">&nbsp;</div></div>
+  <div class="surface  "><div class="key_name rows-1  len-2"><span class="TO">BASE</span></div></div>
 </div>
 <div class="key ">
   <div class="surface noop "><div class="key_name rows-1  len-0">&nbsp;</div></div>
@@ -1675,7 +1678,7 @@
 </td>
 <td>
 <div class="key ">
-  <div class="surface  "><div class="key_name rows-1  len-2"><span class="TO">MEDIA</span></div></div>
+  <div class="surface  "><div class="key_name rows-1  len-2"><span class="TO">NAVI</span></div></div>
 </div>
 <div class="key ">
   <div class="surface noop "><div class="key_name rows-1  len-0">&nbsp;</div></div>
@@ -1710,7 +1713,7 @@
   <div>column shift</div>
 </div>
 <div class="key ">
-  <div class="surface noop "><div class="key_name rows-1  len-0">&nbsp;</div></div>
+  <div class="surface  "><div class="key_name rows-1  len-2"><span class="TO">PROG</span></div></div>
 </div>
 </td>
 <td>
@@ -1730,7 +1733,7 @@
   <div>column shift</div>
 </div>
 <div class="key ">
-  <div class="surface noop "><div class="key_name rows-1  len-0">&nbsp;</div></div>
+  <div class="surface  "><div class="key_name rows-1  len-2"><span class="TO">NAVI</span></div></div>
 </div>
 </td>
 <td>
@@ -1750,13 +1753,13 @@
   <div>column shift</div>
 </div>
 <div class="key ">
-  <div class="surface noop "><div class="key_name rows-1  len-0">&nbsp;</div></div>
+  <div class="surface  "><div class="key_name rows-1  len-2"><span class="TO">MOUSE</span></div></div>
 </div>
 </td>
 <td class="vsep">&nbsp;&nbsp;&nbsp;</td>
 <td>
 <div class="key ">
-  <div class="surface noop "><div class="key_name rows-1  len-0">&nbsp;</div></div>
+  <div class="surface  "><div class="key_name rows-1  len-2"><span class="TO">CUST</span></div></div>
 </div>
 <div class="key ">
   <div class="surface noop "><div class="key_name rows-1  len-0">&nbsp;</div></div>
@@ -1771,7 +1774,7 @@
   <div>column shift</div>
 </div>
 <div class="key ">
-  <div class="surface  hold"><div class="key_name rows-1  len-2">&nbsp;</div></div>
+  <div class="surface  "><div class="key_name rows-1  len-2"><span class="TO">CUST</span></div></div>
 </div>
 </td>
 <td>
@@ -1791,7 +1794,7 @@
   <div>column shift</div>
 </div>
 <div class="key ">
-  <div class="surface noop "><div class="key_name rows-1  len-0">&nbsp;</div></div>
+  <div class="surface  "><div class="key_name rows-1  len-2"><span class="TO">MEDIA</span></div></div>
 </div>
 </td>
 <td>
@@ -1811,7 +1814,7 @@
   <div>column shift</div>
 </div>
 <div class="key ">
-  <div class="surface noop "><div class="key_name rows-1  len-0">&nbsp;</div></div>
+  <div class="surface  "><div class="key_name rows-1  len-2"><span class="TO">FUNC</span></div></div>
 </div>
 </td>
 <td>
